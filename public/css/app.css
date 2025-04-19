@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Inter';
 }
 
 :root{
@@ -16,7 +19,7 @@ header{
 }
 
 
-@media (min-width: 400px){
+@media (min-width: 200px){
     header{
         padding-left: 1rem;
         padding-right: 1rem;
