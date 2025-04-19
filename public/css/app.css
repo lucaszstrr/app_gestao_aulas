@@ -11,6 +11,8 @@
     --a-color: #90EE90;
     --b-color: #ffffff;
     --c-color: #000000;
+    --d-color: #F4F4F4;
+    --e-color: #DFDFDF;
 }
 
 header{
@@ -50,7 +52,19 @@ button{
     padding: 5px 10px;
     background-color: transparent;
     cursor: pointer;
-    transition: all 0.3 ease;
+    transition: all 0.3 ease, transform 0.2 ease;
+}
+
+div.homepage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
+div.homepage h1{
+    font-size: 56px;
 }
 
 header div.header_right button.btn_login{
@@ -60,9 +74,117 @@ header div.header_right button.btn_login{
 
 button:hover{
     transform: scale(1.1);
+    transition: 50ms ease-in;
+    transition: 50ms ease-out;
 }
 
 header div.header_left img{
     width: 115px;
-    
-}        
+}
+
+section.main-content{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-interface{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 90px;
+    background-color: var(--d-color);
+    border-radius: 15px;
+    border: 0.5px solid var(--e-color);
+    box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+.login-interface .text-login{
+    padding: 0px 15px;
+    justify-content: center; 
+    font-size: 36px;
+}
+
+.login-interface .input{
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 20px;
+    width: 30rem;
+    border: none;
+    background-color: var(--e-color);
+    color: var(--c-color) transparent 15;
+}
+
+.login-interface .login-input{
+    display: flex;
+    padding-top: 20px;
+    align-items: left;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+.login-interface .login-btn{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    background-color: var(--a-color);
+    color: var(--c-color);
+    border: none;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 20px;
+
+}
+
+.create-account-interface{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 90px;
+    background-color: var(--d-color);
+    border-radius: 15px;
+    border: 0.5px solid var(--e-color);
+    box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.create-account-interface .text-login{
+    padding: 0px 15px;
+    justify-content: center; 
+    font-size: 36px;
+}
+
+.create-account-interface .input{
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 20px;
+    width: 30rem;
+    border: none;
+    background-color: var(--e-color);
+    color: var(--c-color) transparent 15;
+}
+
+.create-account-interface .login-input{
+    display: flex;
+    padding-top: 20px;
+    align-items: left;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+.create-account-interface .login-btn{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    background-color: var(--a-color);
+    color: var(--c-color);
+    border: none;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 20px;
+}
