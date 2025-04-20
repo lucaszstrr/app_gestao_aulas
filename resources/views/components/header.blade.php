@@ -10,8 +10,8 @@
 
     <div class="header_right">
 
-        <button><a href="{{route('register')}}">Criar Conta</a></button>
-        <button class="btn_login"><a href="{{route('login')}}">Login</a></button>
+        <a href="{{route('register')}}"><button>Criar Conta</button></a>
+        <a href="{{route('login')}}"><button class="btn_login">Login</button></a>
         <!--
         @include('components.button',['text' => 'Criar Conta','class' => '', 'href' => "{{route('createaccount')}}"])
         @include('components.button',['text' => 'Login','class' => 'btn_login'])
