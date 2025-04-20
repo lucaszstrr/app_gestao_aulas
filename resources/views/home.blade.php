@@ -8,5 +8,5 @@
             <img src="{{ asset('imgs/livros.png') }}">
         </div>
     </main>
-    
+     
 @endsection
