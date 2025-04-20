@@ -23,8 +23,8 @@ header{
 
 @media (min-width: 200px){
     header{
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
 }
 
@@ -46,6 +46,25 @@ header{
     align-items: center;
 }
 
+header div.header_left img{
+    width: 150px !important;
+}
+
+header div.header_right button.btn_login{
+    background-color: var(--c-color);
+    color: var(--b-color);
+}
+
+header div.header_right a{
+    text-decoration: none;
+    color: var(--c-color);
+}
+
+main div.homepage{
+    display: flex;
+    padding-top: 100px;
+}
+
 button{
     border: 1px solid var(--c-color);
     border-radius: 4px;
@@ -53,7 +72,16 @@ button{
     background-color: transparent;
     cursor: pointer;
     transition: all 0.3 ease, transform 0.2 ease;
+    box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
 }
+
+button:hover{
+    transform: scale(1.1);
+    transition: 0.5s ease-in;
+    transition: 0.5s ease-out;
+}
+
 
 div.homepage{
     display: flex;
@@ -64,19 +92,77 @@ div.homepage{
 }
 
 div.homepage h1{
+    opacity: 0;
     font-size: 56px;
+    animation: fadeIn 1s ease forwards;
 }
 
-header div.header_right button.btn_login{
-    background-color: var(--c-color);
-    color: var(--b-color);
+div.homepage p{
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
 }
 
-button:hover{
+@media (min-width: 200px) and (max-width: 800px){
+    main{
+        display: flex;
+    }
+
+    div.homepage{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+        align-items: center !important;
+        padding: 20px;
+    }
+
+    div.homepage h1{
+        opacity: 0;
+        font-size: 42px;
+        animation: fadeIn 1s ease forwards;
+    }
+    
+    div.homepage p{
+        opacity: 0;
+        font-size: 18px;
+        animation: fadeIn 2s ease forwards;
+    }
+    
+    .foto-homepage {
+        width: 300px;
+        opacity: 0;
+        transition: all 0.3 ease, transform 0.2 ease;
+        animation: fadeIn 3s ease forwards;
+    }
+    
+}
+
+.foto-homepage {
+    opacity: 0;
+    transition: all 0.3 ease, transform 0.2 ease;
+    animation: fadeIn 3s ease forwards;
+}
+
+.foto-homepage:hover {
     transform: scale(1.1);
-    transition: 50ms ease-in;
-    transition: 50ms ease-out;
+    transition: 0.7s ease-out;
+    transition: 0.7s ease-in;
 }
+
+@keyframes aparecerDoLado {
+    to {
+    opacity: 1;
+    transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
 
 header div.header_left img{
     width: 115px;
@@ -139,6 +225,62 @@ section.main-content{
 
 }
 
+@media (min-width: 200px) and (max-width: 900px){
+    .login-interface{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 70px 90px;
+        background-color: var(--d-color);
+        border-radius: 15px;
+        border: 0.5px solid var(--e-color);
+        box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+        width: 390px;
+        height: 450px;
+    }
+    
+    
+    .login-interface .text-login{
+        margin-bottom: 30px;
+        margin-top: 30px;
+        padding: 0px;
+        justify-content: center; 
+        font-size: 22px;
+    }
+    
+    .login-interface .input{
+        padding: 10px;
+        border-radius: 15px;
+        font-size: 20px;
+        width: 20rem;
+        border: none;
+        background-color: var(--e-color);
+        color: var(--c-color) transparent 15;
+    }
+    
+    .login-interface .login-input{
+        display: flex;
+        padding-top: 20px;
+        align-items: left;
+        padding-bottom: 10px;
+        font-size: 20px;
+    }
+    
+    .login-interface .login-btn{
+        display: flex;
+        margin-top: 20px;
+        justify-content: center;
+        background-color: var(--a-color);
+        color: var(--c-color);
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        padding: 20px;
+        margin-top: 50px;
+    }
+}
+
 .create-account-interface{
     display: flex;
     flex-direction: column;
@@ -187,4 +329,64 @@ section.main-content{
     border-radius: 15px;
     font-size: 24px;
     padding: 20px;
+}
+
+@media (min-width: 200px) and (max-width: 900px){
+    .create-account-interface{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 70px 90px;
+        background-color: var(--d-color);
+        border-radius: 15px;
+        border: 0.5px solid var(--e-color);
+        box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+        width: 390px;
+        height: 650px;
+    }
+    
+    
+    
+    .create-account-interface .text-login{
+        margin-bottom: 30px;
+        padding: 0px;
+        justify-content: center; 
+        font-size: 22px;
+    }
+    
+    .create-account-interface .input{
+        padding: 10px;
+        border-radius: 15px;
+        font-size: 20px;
+        width: 20rem;
+        border: none;
+        background-color: var(--e-color);
+        color: var(--c-color) transparent 15;
+    }
+    
+    .create-account-interface .login-input{
+        display: flex;
+        padding-top: 20px;
+        align-items: left;
+        padding-bottom: 10px;
+        font-size: 20px;
+    }
+    
+    .create-account-interface .login-btn{
+        display: flex;
+        margin-top: 20px;
+        justify-content: center;
+        background-color: var(--a-color);
+        color: var(--c-color);
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    main .main-content{
+        margin-top: 50px;
+    }
 }
