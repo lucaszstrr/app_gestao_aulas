@@ -6,6 +6,9 @@
 
         <title>Reforçando</title>
 
+        <link rel="shortcut icon" href="{{ asset('imgs/favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('imgs/favicon.ico') }}" type="image/x-icon">
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
