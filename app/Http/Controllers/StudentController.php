@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isEmpty;
 
 class StudentController extends Controller
 {
@@ -12,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return view('add-student');
     }
 
     /**
@@ -28,7 +31,34 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validateStudent = $request->validate([
+            "name" => "required | string",
+            "age" => "nullable | integer",
+            "school_year" => "required | string",
+            "school" => "nullable | string",
+            "number" => "nullable | integer | digits_between:10,11",
+            "responsible" => "required | string",
+            "responsible_number" => "required | integer | digits_between:10,11",
+        ]);
+
+        // if(!$validateStudent['number']){
+        //     return back()->withInput()->withErrors([
+        //         'number' => 'Numero inválido, deve ter apenas números'
+        //     ]);
+        // }
+
+        // if(isEmpty($validateStudent['number']) && count($validateStudent['responsible_number']) != 11 ){
+        //     return back()->withInput()->withErrors([
+        //         'number-lenght' => 'Numero inválido, deve ter apenas números'
+        //     ]);
+        // }
+        
+
+        dd($validateStudent);
+
+        // return redirect()->route('students');
+
     }
 
     /**
