@@ -13,6 +13,8 @@
     --c-color: #000000;
     --d-color: #F4F4F4;
     --e-color: #DFDFDF;
+    --f-color: #3A6604;
+    --g-color: #FF0000;
 }
 
 header{
@@ -44,6 +46,8 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1rem; 
+    position: relative; 
 }
 
 header div.header_left img{
@@ -60,6 +64,142 @@ header div.header_right a{
     color: var(--c-color);
 }
 
+header div.header_right a.logged-header{
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+header div.header_middle{
+    justify-content: center;
+    display: flex;
+    gap: 1rem; /* Espaço entre os links (desktop) */
+}
+
+
+header div.header_middle a{
+    text-decoration: none;
+    color: var(--c-color);
+    padding: 0px 40px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+header div.header_middle a:hover{
+    font-weight: bold;
+    transform: scale(1.1);
+    transform: all 0.7 ease-in-out;
+}
+
+
+
+
+/* ---- Estilos do Menu Hambúrguer (Mobile) ---- */
+/* Checkbox invisível */
+.menu-toggle {
+    display: none;
+}
+
+/* Ícone do hambúrguer (oculto no desktop) */
+.hamburguer {
+    display: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 100; /* Garante que fique acima do menu */
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: var(--c-color); /* Usando sua variável de cor */
+    transition: all 0.3s ease;
+}
+
+/* Efeito de "X" quando o menu está aberto */
+.menu-toggle:checked + .hamburguer .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle:checked + .hamburguer .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle:checked + .hamburguer .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+
+
+/* Media query para mobile */
+@media (max-width: 980px) {
+    /* Esconde os links originais */
+    header div.header_middle {
+        justify-content: flex-end; /* Alinha o hambúrguer à direita */
+        gap: 0;
+    }
+
+    .nav-middle {
+        display: flex;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background-color: var(--b-color);
+        border-bottom: 1px solid var(--c-color);
+        padding: 1rem 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 99;
+        opacity: 0;
+        transform: translateY(-20px);
+        visibility: hidden;
+        transition: all 0.4s ease;
+    }
+
+    /* Ajustes para os links no menu mobile */
+    .nav-middle a {
+        padding: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Mostra o ícone do hambúrguer */
+    .hamburguer {
+        display: block;
+    }
+
+    /* Mostra o menu quando o checkbox está marcado */
+    .menu-toggle:checked ~ .nav-middle {
+        display: flex;
+    }
+
+    /* Remove hover com transform no mobile (opcional) */
+    .nav-middle a:hover {
+        transform: none;
+    }
+
+
+    .menu-toggle:checked ~ .nav-middle {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    div.header_right .logged-header{
+        font-size: 14px !important;
+    }
+
+    div.header_right{
+        padding-right: 5px !important;
+    }
+}
+
+
+
+
 main div.homepage{
     display: flex;
     padding-top: 100px;
@@ -71,15 +211,14 @@ button{
     padding: 5px 10px;
     background-color: transparent;
     cursor: pointer;
-    transition: all 0.3 ease, transform 0.2 ease;
+    transition: all 0.3s ease;
     box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.3);
     font-size: 18px;
 }
 
 button:hover{
     transform: scale(1.1);
-    transition: 0.5s ease-in;
-    transition: 0.5s ease-out;
+    transition: all 0.5s ease-in-out;
 }
 
 
@@ -132,22 +271,21 @@ div.homepage p{
     .foto-homepage {
         width: 300px;
         opacity: 0;
-        transition: all 0.3 ease, transform 0.2 ease;
         animation: fadeIn 3s ease forwards;
+        transition: all 0.3s ease;
     }
     
 }
 
 .foto-homepage {
     opacity: 0;
-    transition: all 0.3 ease, transform 0.2 ease;
     animation: fadeIn 3s ease forwards;
+    transition: all 0.3s ease;
 }
 
 .foto-homepage:hover {
     transform: scale(1.1);
-    transition: 0.7s ease-out;
-    transition: 0.7s ease-in;
+    transition: all 0.7s ease-in-out;
 }
 
 @keyframes aparecerDoLado {
@@ -164,13 +302,11 @@ div.homepage p{
   }
 
 
-header div.header_left img{
-    width: 115px;
-}
+
 
 section.main-content{
     display: flex;
-    margin-top: 100px;
+    margin-top: 50px;
     justify-content: center;
     align-items: center;
 }
@@ -212,6 +348,18 @@ section.main-content{
     font-size: 24px;
 }
 
+.login-interface .not-account{
+    padding-top: 10px;
+    font-weight: 300;
+}
+.login-interface .not-account .link-not-account{
+    text-decoration: none;
+    font-weight: bold;
+}
+.login-interface .not-account .link-not-account:hover{
+    color: var(--f-color);
+}
+
 .login-interface .login-btn{
     display: flex;
     margin-top: 20px;
@@ -224,6 +372,8 @@ section.main-content{
     padding: 20px;
 
 }
+
+
 
 @media (min-width: 200px) and (max-width: 900px){
     .login-interface{
@@ -282,7 +432,8 @@ section.main-content{
 }
 
 .create-account-interface{
-    display: flex;
+    display: grid;
+    place-items: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -293,7 +444,15 @@ section.main-content{
     box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
 }
 
+p.field-error{
+    color: var(--g-color);
+    font-weight: bold;
+}
 
+p.error-name-lenght{
+    color: var(--g-color);
+    font-weight: bold;
+}
 
 .create-account-interface .text-login{
     padding: 0px 15px;
@@ -317,6 +476,18 @@ section.main-content{
     align-items: left;
     padding-bottom: 10px;
     font-size: 24px;
+}
+
+.create-account-interface .has-account{
+    padding-top: 10px;
+    font-weight: 300;
+}
+.create-account-interface .has-account .link-has-account{
+    text-decoration: none;
+    font-weight: bold;
+}
+.create-account-interface .has-account .link-has-account:hover{
+    color: var(--f-color);
 }
 
 .create-account-interface .login-btn{
@@ -390,3 +561,45 @@ section.main-content{
         margin-top: 50px;
     }
 }
+
+div.content-students-page{
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+div.students-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.students-content a{
+    text-decoration: none;
+}
+
+option.input-option{
+    background-color: var(--e-color);
+    color: var(--c-color) transparent 15;
+    border: 0.5px var(--c-color);
+    border-radius: 15px;
+}
+
+
+div.students-content .add-student-btn{
+    display: flex;
+    height: 40px !important;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--a-color);
+    color: var(--c-color);
+    border: none;
+    border-radius: 15px;
+    font-size: 24px;
+
+    
+}
+
+p.advice-number{
+    font-size: 12px;
+}   
