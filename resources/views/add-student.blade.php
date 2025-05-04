@@ -3,7 +3,7 @@
 @section('content')
 
     <section class="main-content">
-        <div class="login-interface">
+        <div class="register-student">
             <h2 class="text-login">Cadastre seus alunos</h2>
             <form method="POST" action="{{ route('cadastrar-aluno') }}">
                 @csrf
