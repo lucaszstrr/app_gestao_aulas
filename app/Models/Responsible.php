@@ -10,6 +10,7 @@ class Responsible extends Model
     use HasFactory;
 
     protected $fillable = [
+        "student_id",
         "student",
         "name",
         "number",
