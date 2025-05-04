@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Responsible;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $teacherId = Auth::id();
 
         $validateStudent = $request->validate([
             "name" => "required | string",
@@ -42,22 +44,42 @@ class StudentController extends Controller
             "responsible_number" => "required | integer | digits_between:10,11",
         ]);
 
-        // if(!$validateStudent['number']){
-        //     return back()->withInput()->withErrors([
-        //         'number' => 'Numero inválido, deve ter apenas números'
-        //     ]);
-        // }
+        if($validateStudent['school_year'] == 'fundamental 1'){
+            $classValue = 90.00;
+        }
 
-        // if(isEmpty($validateStudent['number']) && count($validateStudent['responsible_number']) != 11 ){
-        //     return back()->withInput()->withErrors([
-        //         'number-lenght' => 'Numero inválido, deve ter apenas números'
-        //     ]);
-        // }
-        
+        if($validateStudent['school_year'] == 'fundamental 2'){
+            $classValue = 90.00;
+        }
 
-        dd($validateStudent);
+        if($validateStudent['school_year'] == 'ensino médio'){
+            $classValue = 120.00;
+        }
 
-        // return redirect()->route('students');
+        if($validateStudent['school_year'] == 'ensino superior'){
+            $classValue = 130.00;
+        }
+
+
+        $student = Student::create([
+            "name" => $validateStudent['name'],
+            "teacher_id" => $teacherId,
+            "responsible" => $validateStudent['responsible'],
+            "age" => $validateStudent['age'],
+            "school_year" => $validateStudent['school_year'],
+            "school" => $validateStudent['school'],
+            "number" => $validateStudent['number'],
+            "class_value" => $classValue
+        ]);
+
+        $responsible = Responsible::create([
+            "student_id" => $student->id,
+            "student" => $student->name,
+            "name" => $validateStudent['responsible'],
+            "number" => $validateStudent['responsible_number']
+        ]);
+
+        return redirect()->route('meus-alunos');
 
     }
 
