@@ -11,14 +11,13 @@ class Student extends Model
 
     protected $fillable = [
         "name",
+        "teacher_id",
         "responsible",
         "age",
         "school_year",
         "school",
         "number",
         "class_value",
-        "responsible",
-        "responsible_number",
     ];
 
     public function user(){
