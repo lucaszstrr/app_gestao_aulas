@@ -1,27 +1,23 @@
 <header>
     <div class="header_left">
-        <a href="{{ route('home') }}">
+        <a href="{{ route('meus-alunos') }}">
             <img src="{{asset('imgs/logo-reforcando.png')}}" alt="Reforçando">
         </a>
     </div>
 
-    <!-- Menu do meio (transformado em hambúrguer no mobile) -->
     <div class="header_middle">
-        <!-- Checkbox invisível para controlar o menu -->
         <input type="checkbox" id="menu-toggle" class="menu-toggle" />
         
-        <!-- Ícone do hambúrguer (aparece só no mobile) -->
         <label for="menu-toggle" class="hamburguer">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </label>
         
-        <!-- Links do menu (ocultos no mobile até clicar) -->
         <nav class="nav-middle">
             <a href="{{ route('meus-alunos') }}">Meus Alunos</a>
             <a href="{{ route('menu-professor') }}">Menu do Professor</a>
-            <a href="">Finanças</a>
+            <a href="">Cobranças</a>
         </nav>
     </div>
 
