@@ -40,16 +40,16 @@ Route::middleware('auth')->group(function () {
     })->name('menu-professor');
 
     //STUDENTS
-    Route::get('/meus-alunos', function(){
-        return view('students');
-    })->name('meus-alunos');
+    Route::get('/meus-alunos', [StudentController::class, 'index'])->name('meus-alunos');
 
-    
-    Route::get('/adicionar-aluno', [StudentController::class, 'index'])->name('adicionar-aluno');
+    Route::get('/adicionar-aluno', [StudentController::class, 'indexRegisterStudent'])->name('adicionar-aluno');
     Route::post('/cadastrar-aluno', [StudentController::class, 'store'])->name('cadastrar-aluno');
+    
    
+    Route::get('/editar-aluno/{id}', [StudentController::class, 'indexUpdateStudent'])->name('editar-aluno');
+    Route::put('/aluno/{id}', [StudentController::class, 'update'])->name('submit-editar-aluno');
 
-
+    Route::delete('/remover-aluno/{id}', [StudentController::class, 'delete'])->name('remover-aluno');
 
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
