@@ -15,6 +15,7 @@
     --e-color: #DFDFDF;
     --f-color: #3A6604;
     --g-color: #FF0000;
+    --h-color: #6c757d;
 }
 
 header{
@@ -771,3 +772,111 @@ div.students-content .add-student-btn{
 p.advice-number{
     font-size: 12px;
 }   
+
+
+/* Tabela geral */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Tabela principal */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+/* Cabeçalho */
+.table thead th {
+    background-color: #f8f9fa;
+    color: var(--c-color);
+    font-weight: 600;
+    vertical-align: middle;
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+/* Células */
+.table td, .table th {
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dee2e6; /* Bordas internas */
+}
+
+/* Linhas zebradas */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02); /* Listras suaves */
+}
+
+/* Efeito hover */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05); /* Azul bem suave */
+}
+
+/* Ícones de ação */
+.table .btn-link {
+    padding: 5px;
+    transition: all 0.2s;
+}
+
+.table img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s;
+}
+
+.table img:hover {
+    transform: scale(1.15);
+    opacity: 0.9;
+}
+
+/* Mensagem "Nenhum aluno" */
+.text-center.py-4 {
+    color: var(--h-color);
+    font-style: italic;
+}
+
+/* Bordas arredondadas na primeira e última célula */
+.table thead tr:first-child th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table thead tr:first-child th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+@media(max-width: 980px){
+    div.content-students-page {
+        margin-top: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    div.students-content{
+        font-size: 14px;
+    }
+
+    div.students-content .add-student-btn {
+        font-size: 18px;
+    }
+}
+
+form{
+    display: inline !important;
+}
+
+form button{
+    padding: 10px !important;
+}
