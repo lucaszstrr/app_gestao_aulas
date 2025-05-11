@@ -9,6 +9,8 @@ class Management extends Model
 {
     use HasFactory;
 
+    protected $table = 'managements';
+
     protected $fillable = [
         "student_id",
         "teacher_id",
@@ -18,7 +20,7 @@ class Management extends Model
         "paid",
     ];
 
-    public function student(){
+    public function students(){
         return $this->hasOne(Student::class);
     }
 
