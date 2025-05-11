@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('student_id')->references('id')->on('students');
             $table->foreignId('teacher_id')->references('id')->on('users');
             $table->integer('quantity_classes')->default(0);
-            $table->decimal('class_value', 3, 2);
-            $table->decimal('total_value', 4, 2)->nullable();
+            $table->decimal('class_value');
+            $table->decimal('total_value', 5, 2)->nullable();
             $table->string('paid')->nullable();
             $table->timestamps();
         });
