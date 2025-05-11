@@ -48,7 +48,6 @@
                                         <img src="{{ asset('imgs/remove.png') }}" width="30" alt="Ícone remover">
                                     </button>
                                 </form>
-                                    
                             </td>
                         </tr>
                     @empty
@@ -59,10 +58,6 @@
                 </tbody>
             </table>
         </div>
-        
-
     </div>
-
-
 
 @endsection
