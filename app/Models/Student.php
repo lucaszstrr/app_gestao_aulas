@@ -28,7 +28,7 @@ class Student extends Model
         return $this->hasOne(Responsible::class);
     }
 
-    public function management(){
+    public function managements(){
         return $this->hasMany(Management::class);
     }
 }
