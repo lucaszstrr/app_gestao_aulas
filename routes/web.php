@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
+use App\Models\Management;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,9 +39,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('login-account');
 
 Route::middleware('auth')->group(function () {
     //TEACHER MENU
-    Route::get('/menu-professor', function(){
-        return view('menu');
-    })->name('menu-professor');
+    Route::get('/menu-professor', [ManagementController::class, 'index'])->name('menu-professor');
+
+    Route::post('/aulas/{id}', [ManagementController::class, 'store'])->name('quantidade-aulas');
+
+
+
+
 
     //STUDENTS
     Route::get('/meus-alunos', [StudentController::class, 'index'])->name('meus-alunos');
@@ -51,6 +59,11 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/remover-aluno/{id}', [StudentController::class, 'delete'])->name('remover-aluno');
 
+
+
+
+
+    
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
