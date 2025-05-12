@@ -1,9 +1,11 @@
 @extends('layouts.app-logged')
 
 @section('content')
-
+    <a href="{{ route('meus-alunos') }}" class="return-back-link"><- Voltar</a>
     <section class="main-content">
+        
         <div class="register-student">
+            
             <h2 class="text-login">Cadastre seus alunos</h2>
             <form method="POST" action="{{ route('cadastrar-aluno') }}">
                 @csrf
