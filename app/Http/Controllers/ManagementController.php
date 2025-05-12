@@ -18,7 +18,9 @@ class ManagementController extends Controller
         
         $students = Student::where('teacher_id', $userLogged->id)->get();
 
-        return view('menu', compact('students'));
+        $totalValue = Management::where("teacher_id", $userLogged->id)->sum("total_value");
+
+        return view('menu', compact('students', 'totalValue'));
     }
 
     /**
@@ -36,10 +38,6 @@ class ManagementController extends Controller
     {
         $userLogged = Auth::user();
 
-        $userId = $userLogged->id;
-
-        $findStudent = Student::findOrFail($id);
-
         $student = Student::where('id', $id)->first();
 
         $validateManagement = $request->validate([
@@ -49,6 +47,10 @@ class ManagementController extends Controller
         $managementExists = Management::where( "student_id", $id)->first();
 
         if($managementExists){
+            if($validateManagement["quantity_classes"] >= 4){
+                $student->class_value = $student->class_value - 10;
+            }
+
             $valueClasses = $validateManagement["quantity_classes"] * $student->class_value;
 
             $managementExists->update([
@@ -59,6 +61,10 @@ class ManagementController extends Controller
             $managementExists->save();
 
             return redirect()->route('menu-professor')->with('success', 'Presença atualizada com sucesso!');
+        }
+
+        if($validateManagement["quantity_classes"] >= 4){
+            $student->class_value = $student->class_value - 10;
         }
 
         $valueClasses = $validateManagement["quantity_classes"] * $student->class_value;
@@ -72,6 +78,23 @@ class ManagementController extends Controller
         ]);
 
         return redirect()->route('menu-professor')->with('success', 'Presença atualizada com sucesso!');
+    }
+
+    public function updatePayment(Request $request, string $id)
+    {
+        $userLogged = Auth::user();
+
+        $student = Student::findOrFail($id);
+
+        $latestManagement = $student->managements()->latest()->first();
+        
+        if ($latestManagement) {
+            $latestManagement->update([
+                'paid' => $request->paid === 'true'
+            ]);
+        }
+
+        return redirect()->route('menu-professor')->with('success', 'Pagamento atualizado!');
     }
 
     /**
