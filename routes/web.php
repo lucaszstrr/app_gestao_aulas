@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/aulas/{id}', [ManagementController::class, 'store'])->name('quantidade-aulas');
 
+    Route::post('/pagamento-aluno/{id}', [ManagementController::class, 'updatePayment'])->name('pagamento-aluno');
+
 
 
 
