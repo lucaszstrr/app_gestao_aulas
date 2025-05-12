@@ -1,7 +1,7 @@
 @extends('layouts.app-logged')
 
 @section('content')
-    
+
     <div class="content-students-page">
         <div class="students-content">
             <h1>Menu do professor</h1>
@@ -25,8 +25,10 @@
                     @forelse ($students as $student)
                         @php
                             $latestManagement = $student->managements()->latest()->first();
+
+                            $paidStatus = $latestManagement ? $latestManagement->paid : false;
                         @endphp
-                        <tr>
+                        <tr class="{{ $paidStatus ? 'bg-success-light' : '' }}">
                             <td class="text-center align-middle">{{ $student->name }}</td>
                             <td class="text-center align-middle">{{ $student->school_year }}</td>
                             <td class="text-center align-middle">{{ $student->school }}</td>
@@ -34,7 +36,6 @@
                             <td class="text-center align-middle">
 
                                 <form method="POST" action="{{ route('quantidade-aulas', $student->id) }}">
-
                                 @csrf
                                     <select class="input" name="quantity_classes" onchange="this.form.submit()">
                                         @for($i = 0; $i <= 12; $i++)
@@ -44,18 +45,23 @@
                                             </option>
                                         @endfor
                                     </select>
+                                </form>
 
+                            </td>
+
+                            <td class="text-center align-middle">R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}</td>
+                            
+                            <td class="text-center align-middle">
+                                <form method="POST" action="{{ route('pagamento-aluno', $student->id) }}">
+                                    @csrf
+                                    <select class="input" name="paid"  onchange="this.form.submit()" required>
+                                        <option class="input-option" value="false" {{ !$paidStatus ? 'selected' : '' }}>Não</option>
+                                        <option class="input-option" value="true" {{ $paidStatus ? 'selected' : '' }}>Sim</option>
+                                    </select>
                                 </form>
                             </td>
-                            <td class="text-center align-middle">R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}</td>
-                            <td class="text-center align-middle">
-                                <select class="input" name="paid" required>
-                                    <option class="input-option" value="no">Não</option>
-                                    <option class="input-option" value="yes">Sim</option>
-                                </select>
-                            </td>
-                            
                         </tr>
+
                     @empty
                         <tr>
                             <td colspan="7" class="text-center py-4">Nenhum aluno cadastrado</td>
@@ -65,5 +71,8 @@
             </table>
         </div>
     </div>
+    <footer class="footer">
+            <h3>Total: R${{ number_format($totalValue ?? 0, 2, ',', '.') }}</h3>
+    </footer>
 @endsection
 
