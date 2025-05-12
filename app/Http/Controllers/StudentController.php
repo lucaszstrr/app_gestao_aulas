@@ -54,11 +54,11 @@ class StudentController extends Controller
         ]);
 
         if($validateStudent['school_year'] == 'fundamental 1'){
-            $classValue = 90.00;
+            $classValue = 100.00;
         }
 
         if($validateStudent['school_year'] == 'fundamental 2'){
-            $classValue = 90.00;
+            $classValue = 100.00;
         }
 
         if($validateStudent['school_year'] == 'ensino médio'){
@@ -157,11 +157,11 @@ class StudentController extends Controller
         ]);
 
         if($validateStudent['school_year'] == 'fundamental 1'){
-            $classValue = 90.00;
+            $classValue = 100.00;
         }
 
         if($validateStudent['school_year'] == 'fundamental 2'){
-            $classValue = 90.00;
+            $classValue = 100.00;
         }
 
         if($validateStudent['school_year'] == 'ensino médio'){
