@@ -61,7 +61,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('menu-professor');
     }
 
 
@@ -79,12 +79,11 @@ class AuthController extends Controller
 
         if(Auth::attempt($validateLogin)){
             return redirect()->route('menu-professor');
-        }else{
-            return back()->withInput()->withErrors([
-                "credentials" => "As credenciais não coincidem"
-            ]);
         }
 
+        return back()->withInput()->withErrors([
+            "credentials" => "As credenciais não coincidem"
+        ]);
     }
     
     public function logout()
