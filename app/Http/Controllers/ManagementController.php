@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ManagementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $userLogged = Auth::user();
@@ -20,20 +17,20 @@ class ManagementController extends Controller
 
         $totalValue = Management::where("teacher_id", $userLogged->id)->sum("total_value");
 
-        return view('menu', compact('students', 'totalValue'));
+        $classes = Management::where("teacher_id", $userLogged->id)->sum("quantity_classes");
+
+        $roomRental = $classes * 20;
+
+        return view('menu', compact('students', 'totalValue', 'roomRental'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create(Student $student)
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request, Student $student, string $id)
     {
         $userLogged = Auth::user();
@@ -127,5 +124,16 @@ class ManagementController extends Controller
     public function destroy(Management $management)
     {
         //
+    }
+
+    public function indexProvisorio()
+    {
+        $userLogged = Auth::user();
+
+        $students = Student::where("teacher_id", $userLogged->id)->get();
+
+        
+
+        return view('finances', compact('students'));
     }
 }
