@@ -62,7 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/remover-aluno/{id}', [StudentController::class, 'delete'])->name('remover-aluno');
 
 
-
+    //FINANCES
+    Route::get('/cobrancas', [ManagementController::class, 'indexProvisorio'])->name('cobrancas');
 
 
     
