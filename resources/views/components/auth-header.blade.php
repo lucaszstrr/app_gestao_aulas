@@ -17,7 +17,7 @@
         <nav class="nav-middle">
             <a href="{{ route('meus-alunos') }}">Meus Alunos</a>
             <a href="{{ route('menu-professor') }}">Menu do Professor</a>
-            <a href="">Cobranças</a>
+            <a href="{{ route('cobrancas') }}">Cobranças</a>
         </nav>
     </div>
 
