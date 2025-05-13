@@ -72,7 +72,9 @@
         </div>
     </div>
     <footer class="footer">
-            <h3>Total: R${{ number_format($totalValue ?? 0, 2, ',', '.') }}</h3>
+        <h3>Total Bruto: R${{ number_format($totalValue ?? 0, 2, ',', '.') }}</h3>
+        <h3>Valor das Salas: R${{ number_format($roomRental ?? 0, 2, ',', '.') }}</h3>
+        <h3>Total Líquido: R${{ number_format($totalValue - $roomRental ?? 0, 2, ',', '.') }}</h3>
     </footer>
 @endsection
 
