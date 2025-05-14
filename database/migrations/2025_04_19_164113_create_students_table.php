@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('responsible_id')->nullable();
             $table->string('name');
             $table->string('responsible');
+            $table->unsignedBigInteger('responsible_number');
             $table->integer('age');
             $table->enum('school_year', ['fundamental 1', 'fundamental 2', 'ensino médio', 'ensino superior']);
             $table->string('school')->nullable();
