@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -63,7 +64,7 @@ Route::middleware('auth')->group(function () {
 
 
     //FINANCES
-    Route::get('/cobrancas', [ManagementController::class, 'indexProvisorio'])->name('cobrancas');
+    Route::get('/financas', [FinancesController::class, 'index'])->name('financas');
 
 
     
