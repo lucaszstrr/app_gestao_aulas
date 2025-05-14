@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="content-students-page">
-        <div class="students-content">
+    <div class="content-finances-page">
+        <div class="finances-content">
             <h1>Cobranças</h1>
         </div>
 
@@ -24,13 +24,22 @@
                             $latestManagement = $student->managements()->latest()->first();
 
                             $paidStatus = $latestManagement ? $latestManagement->paid : false;
+
+                            $responsible = $student->responsible();
+
                         @endphp
                         <tr class="{{ $paidStatus ? 'bg-success-light' : '' }}">
                             <td class="text-center align-middle">{{ $student->name }}</td>
                             <td class="text-center align-middle">{{ $student->responsible }}</td>
-                            <td class="text-center align-middle">{{ $latestManagement->quantity_classes }}</td>
+                            <td class="text-center align-middle">{{ $latestManagement->quantity_classes ?? 0 }}</td>
                             <td class="text-center align-middle">R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}</td>
-                            <td class="text-center align-middle"></td>
+                            <td class="text-center align-middle">
+                                <a target="_blank" href="https://wa.me/55{{ $student->responsible_number }}?text=***Aluno:*** {{ $student->name }}%0A***Quantidade de aulas:*** {{ $latestManagement->quantity_classes ?? 0 }}%0A***Valor:*** R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}">
+                                    <button class="green-button">
+                                        Enviar mensagem
+                                    </button>
+                                </a>
+                            </td>
                         </tr>
 
                     @empty
@@ -41,6 +50,22 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="finances-content">
+            <h1>Valor das salas</h1>
+        </div>
+
+        <div class="finances-container">
+            <h3>{{ $greet }}, {{ $userLogged->name }}!</h3>
+            @if($totalClasses == 0)
+                <p class="finances-text">Você ainda não teve nenhuma aula!</p>
+
+            @else
+                <p class="finances-text">Até o momento, você teve {{ $totalClasses }} aulas!</p>
+                <p class="finances-text">O valor das salas a ser pago é de: R${{ number_format($roomRental, 2, ',', '.') }}</p>
+            @endif
+        </div>
+        
     </div>
 
 @endsection
