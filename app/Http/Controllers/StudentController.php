@@ -74,22 +74,28 @@ class StudentController extends Controller
             "name" => $validateStudent['name'],
             "teacher_id" => $teacherId,
             "responsible" => $validateStudent['responsible'],
+            "responsible_number" => $validateStudent['responsible_number'],
             "age" => $validateStudent['age'],
             "school_year" => $validateStudent['school_year'],
             "school" => $validateStudent['school'],
             "number" => $validateStudent['number'],
-            "class_value" => $classValue
+            "class_value" => $classValue,
         ]);
 
-        $responsible = Responsible::create([
+        $createResponsible = Responsible::create([
             "student_id" => $student->id,
             "student" => $student->name,
             "name" => $validateStudent['responsible'],
             "number" => $validateStudent['responsible_number']
         ]);
 
-        return redirect()->route('meus-alunos');
+        $responsible = Responsible::where("student_id", $student->id)->first();
 
+        $student->update([
+            "responsible_id" => $responsible->id
+        ]);
+
+        return redirect()->route('meus-alunos');
     }
 
     public function delete(string $id)
