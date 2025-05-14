@@ -18,6 +18,8 @@ class Student extends Model
         "school",
         "number",
         "class_value",
+        "responsible_id",
+        "responsible_number",
     ];
 
     public function user(){
