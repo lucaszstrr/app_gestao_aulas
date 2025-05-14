@@ -227,6 +227,12 @@ button:hover{
     transition: all 0.5s ease-in-out;
 }
 
+button.green-button{
+    background-color: var(--a-color);
+    color: var(--c-color);
+    border: none;
+}
+
 
 div.homepage{
     display: flex;
@@ -961,4 +967,21 @@ form button{
         transform: translateY(0) translateX(-50%);
         opacity: 1;
     }
+}
+
+div.content-finances-page{
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+div.finances-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+p.finances-text{
+    font-size: 18px;
+    padding-top: 5px;
 }
