@@ -21,7 +21,7 @@ class ManagementController extends Controller
 
         $roomRental = $classes * 20;
 
-        return view('menu', compact('students', 'totalValue', 'roomRental'));
+        return view('menu', compact('students','totalValue', 'roomRental'));
     }
 
 
@@ -124,16 +124,5 @@ class ManagementController extends Controller
     public function destroy(Management $management)
     {
         //
-    }
-
-    public function indexProvisorio()
-    {
-        $userLogged = Auth::user();
-
-        $students = Student::where("teacher_id", $userLogged->id)->get();
-
-        
-
-        return view('finances', compact('students'));
     }
 }
