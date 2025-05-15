@@ -22,7 +22,7 @@
     </div>
 
     <div class="header_right">
-        <a href="" class="logged-header">  
+        <a href="{{ route('perfil') }}" class="logged-header">  
             @auth
             Olá, {{ explode(' ', auth()->user()->name)[0] }}!
             @endauth
