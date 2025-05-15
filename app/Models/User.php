@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'area',
+        'pix-key', 
+        'pix-key-type',
     ];
 
     /**
