@@ -24,11 +24,6 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Route::get('/login', function () {
-//     return view('login');
-// })->name('login');
-
-
 
 Route::get('/register', [AuthController::class, 'index'])->name('register');
 Route::post('/register', [AuthController::class,'store'])->name('register-account');
@@ -66,7 +61,9 @@ Route::middleware('auth')->group(function () {
     //FINANCES
     Route::get('/financas', [FinancesController::class, 'index'])->name('financas');
 
-
+    //PROFILE
+    Route::get('/perfil', [UserController::class, 'index'])->name('perfil');
+    Route::post('/cadastrar-pix', [UserController::class, 'addPix'])->name('adicionar-chave-pix');
     
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
