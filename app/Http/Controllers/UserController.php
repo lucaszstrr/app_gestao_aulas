@@ -20,6 +20,8 @@ class UserController extends Controller
         $userName = $userLogged->name;
 
         $time = Carbon::now('America/Sao_Paulo')->format('H:i:s');
+
+        $firstName = explode(' ', $userLogged->name)[0];
         
         if($time >= '12:00:00' && $time <= '17:59:59'){
             $greet = "Boa tarde";
@@ -31,7 +33,7 @@ class UserController extends Controller
 
         $user = User::where("id", $userLogged->id)->first();
 
-        return view('profile', compact('greet', 'userName', 'user'));
+        return view('profile', compact('greet', 'userName', 'user', 'firstName'));
     }
 
     public function addPix(Request $request)
