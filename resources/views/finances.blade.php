@@ -36,7 +36,7 @@
                             <td class="text-center align-middle">
                                 <a target="_blank" href="https://wa.me/55{{ $student->responsible_number }}?text=***Aluno:*** {{ $student->name }}%0A***Quantidade de aulas:*** {{ $latestManagement->quantity_classes ?? 0 }}%0A***Valor:*** R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}">
                                     <button class="green-button">
-                                        Enviar mensagem
+                                        Enviar mensagem <i class="fa-solid fa-message" style="color: #113800;"></i>
                                     </button>
                                 </a>
                             </td>
@@ -56,16 +56,22 @@
         </div>
 
         <div class="finances-container">
-            <h3>{{ $greet }}, {{ $userLogged->name }}!</h3>
+            <h3>{{ $greet }}, {{ $firstName }}!</h3>
             @if($totalClasses == 0)
                 <p class="finances-text">Você ainda não teve nenhuma aula!</p>
 
             @else
                 <p class="finances-text">Até o momento, você teve {{ $totalClasses }} aulas!</p>
                 <p class="finances-text">O valor das salas a ser pago é de: R${{ number_format($roomRental, 2, ',', '.') }}</p>
+                <a href="{{ route('gerar-codigo-pix') }}">
+                    <button class="green-button">Pagar com código PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i></i></button>
+                </a>
+                @error('key-dont-exists')               
+                    <p class="pix-field-error"><i class="fa-regular fa-circle-question" style="color: #ff0000;"></i> Você deve cadastrar uma chave PIX em <a href="{{ route('perfil') }}">Meu Perfil</a></p>
+                @enderror
             @endif
+                
         </div>
-        
     </div>
 
 @endsection
