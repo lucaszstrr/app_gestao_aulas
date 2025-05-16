@@ -3,13 +3,9 @@
 @section('content')
 
     <div class="content-profile-page">
-
         <h1>Meu perfil</h1>
-        <br>
-        <p>{{ $greet }}, {{ $userName }}!</p>
+        <h3>{{ $greet }}, {{ $firstName }}!</h3>
         
-
-
         <div class="profile-data">
 
             @if($user['pix-key'] == null)
@@ -53,13 +49,10 @@
 
                 <h3>Insira corretamente a sua chave!</h3>
                 <br>
-                <button linkto="{{ route('adicionar-chave-pix') }}" type="submit" class="login-btn green-button">Atualizar Chave</button>
+                <button class="green-button" linkto="{{ route('adicionar-chave-pix') }}">Atualizar Chave</button>
                 <br>
             </form>
-
         </div>
-        
     </div>
-        
 
 @endsection
