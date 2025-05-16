@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     //FINANCES
     Route::get('/financas', [FinancesController::class, 'index'])->name('financas');
+    Route::get('/gerar-pix', [FinancesController::class, 'rentGeneratePix'])->name('gerar-codigo-pix');
 
     //PROFILE
     Route::get('/perfil', [UserController::class, 'index'])->name('perfil');
