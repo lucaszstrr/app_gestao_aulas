@@ -17,6 +17,7 @@
     --g-color: #FF0000;
     --h-color: #6c757d;
     --i-color: #89f358;
+    --j-color: #ffc6c3;
 }
 
 html, body {
@@ -458,6 +459,26 @@ section.main-content{
 p.field-error{
     color: var(--g-color);
     font-weight: bold;
+}
+
+p.login-field-error{
+    text-align: center !important;
+    margin: 15px;
+    padding: 10px;
+    font-weight: bold;
+    color: var(--g-color);
+    background-color: var(--j-color);
+    border-radius: 10px;
+}
+
+p.pix-field-error{
+    text-align: center !important;
+    margin: 15px;
+    padding: 10px;
+    font-weight: bold;
+    color: var(--g-color);
+    background-color: var(--j-color);
+    border-radius: 10px;
 }
 
 p.error-name-lenght{
@@ -981,6 +1002,17 @@ div.finances-content{
     align-items: center;
 }
 
+div.finances-container{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+div.finances-container button{
+    margin-top: 10px !important;
+
+}
+
 p.finances-text{
     font-size: 18px;
     padding-top: 5px;
@@ -1041,4 +1073,79 @@ form.profile-data-form{
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+}
+
+@media (max-width: 980px) {
+    div.content-finances-page {
+        margin-top: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+div.payment-card{
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 450px;
+    height: 600px;
+    border: 1px solid var(--e-color);
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+div.payment-card .card{
+    text-align: center;
+}
+
+div.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+button.payment-button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+    align-self: center;
+}
+
+textarea.pix-area{
+    resize: none;
+}
+
+div.qr-code{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media(max-width: 900px){
+    div.payment-card{
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        width: 320px;
+        height: 600px;
+        border: 1px solid var(--e-color);
+        border-radius: 15px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    div.qr-code{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 300px;
+        height: 300px;
+    }
 }
