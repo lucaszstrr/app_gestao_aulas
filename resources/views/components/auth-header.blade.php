@@ -18,6 +18,7 @@
             <a href="{{ route('meus-alunos') }}">Meus Alunos</a>
             <a href="{{ route('menu-professor') }}">Menu do Professor</a>
             <a href="{{ route('financas') }}">Finanças</a>
+            <a href="{{ route('perfil') }}">Meu perfil</a>
         </nav>
     </div>
 
