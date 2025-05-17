@@ -85,6 +85,35 @@ class AuthController extends Controller
             "credentials" => "As credenciais não coincidem"
         ]);
     }
+
+    public function changePassword(Request $request)
+    {
+        $userLogged = Auth::user();
+
+        $user = User::where("id", $userLogged->id)->first();
+
+        $validatePassword = $request->validate([
+            "password" => "required | string",
+            "new_password" => "required | string"
+        ]);
+
+        if(!Hash::check($validatePassword["password"], $userLogged->password)){
+            return back()->withErrors([
+                "incorrect-password" => "Senha incorreta"
+            ]);
+        }
+
+        if(strlen($validatePassword["new_password"]) < 7){
+            return back()->withInput()->withErrors([
+                "password-lenght" => "A senha deve ter no minimo 7 caracteres"
+            ]);
+        }
+
+        $user->password = Hash::make($validatePassword["new_password"]);
+        $user->save();
+
+        return back()->with('new-password', 'Senha atualizada!');
+    }
     
     public function logout()
     {
