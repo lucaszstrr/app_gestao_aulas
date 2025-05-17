@@ -88,6 +88,11 @@ header div.header_middle{
     gap: 1rem; 
 }
 
+.nav-middle a button{
+    background-color: var(--c-color);
+    color: var(--b-color);
+}
+
 
 header div.header_middle a{
     text-decoration: none;
@@ -193,6 +198,10 @@ header div.header_middle a:hover{
 
     div.header_right{
         padding-right: 5px !important;
+    }
+
+    div.header_right button{
+        visibility: hidden;
     }
 
     header div.header_right a.logged-header {
@@ -1030,6 +1039,32 @@ div.content-profile-page{
     margin-left: 100px;
 }
 
+@media (max-width: 980px) {
+    div.content-profile-page {
+        margin-top: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    div.content-profile-page h1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div.content-grid{
+        display: flex;
+        flex-direction: column;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    div.profile-data{
+        width: 350px !important;
+        margin-right: 0px !important;
+    }
+}
+
 h3.profile-greet{
     font-style: italic;
     font-weight: 400;
@@ -1105,6 +1140,8 @@ form.profile-data-form{
         margin-left: 10px;
     }
 }
+
+
 
 div.payment-card{
     display: flex;
