@@ -14,7 +14,7 @@
                         <input  class="input" name="password" type="password" placeholder="Insira sua senha aqui" required> 
 
                         @error('credentials')
-                            <p class="login-field-error"><i class="fa-regular fa-circle-question" style="color: #ff0000;"></i>Email e/ou senha incorretos!</p>
+                            <p class="login-field-error"><i class="fa-regular fa-circle-question" style="color: #ff0000;"></i> Email e/ou senha incorretos!</p>
                         @enderror               
                     </div>
 
