@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $user = User::where("id", $userLogged->id)->first();
 
-        return view('profile', compact('greet', 'userName', 'user', 'firstName'));
+        return view('profile', compact('greet', 'userName', 'user', 'firstName', 'userLogged'));
     }
 
     public function addPix(Request $request)
@@ -74,7 +74,42 @@ class UserController extends Controller
         $user->update($validateKey);
         $user->save();
 
-        return redirect()->route('perfil');
+        return back()->with('success-key', 'Chave cadastrada');
+    }
+
+    public function updateUserName(Request $request)
+    {
+        $userLogged = Auth::user();
+
+        $user = User::where("id", $userLogged->id)->first();
+
+        $validateUser = $request->validate([
+            "name" => "nullable | string | max:100",
+            "area" => "nullable | string | max:100"
+        ]);
+
+        if(strlen($validateUser["name"]) <= 2){
+            return back()->withInput()->withErrors([
+                "name-lenght" => "Nome inválido"
+            ]);
+        }
+
+        if(strlen($validateUser["area"]) <= 2){
+            return back()->withInput()->withErrors([
+                "area-lenght" => "Area inválido"
+            ]);
+        }
+
+        if($validateUser["name"] == null || $validateUser["area"] == null){
+            return back()->withInput()->withErrors([
+                "empty-spaces" => "Sem entrada"
+            ]);
+        }
+
+        $user->update($validateUser);
+        $user->save();
+
+        return back()->with('success', 'Operação realizada com sucesso!');
     }
 
     /**
