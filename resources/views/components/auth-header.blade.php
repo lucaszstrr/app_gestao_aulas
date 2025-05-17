@@ -19,15 +19,15 @@
             <a href="{{ route('menu-professor') }}">Menu do Professor</a>
             <a href="{{ route('financas') }}">Finanças</a>
             <a href="{{ route('perfil') }}">Meu perfil</a>
+            <a href="{{ route('logout') }}"><button class="btn_login">Deslogar</button></a>
         </nav>
     </div>
 
     <div class="header_right">
         <a href="{{ route('perfil') }}" class="logged-header">  
             @auth
-            Olá, {{ explode(' ', auth()->user()->name)[0] }}!
+            Olá, {{ explode(' ', auth()->user()->name)[0] }}! <i class="fa-solid fa-circle-user fa-xl" style="color: #6e6e6e;"></i>
             @endauth
         </a>
-        <a href="{{ route('logout') }}"><button class="btn_login">Sair</button></a>    
     </div>
 </header>
