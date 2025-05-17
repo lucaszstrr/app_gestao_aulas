@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
     //PROFILE
     Route::get('/perfil', [UserController::class, 'index'])->name('perfil');
     Route::post('/cadastrar-pix', [UserController::class, 'addPix'])->name('adicionar-chave-pix');
+    Route::put('/atualizar-dados', [UserController::class, 'updateUserName'])->name('atualizar-nome');
+    Route::put('/mudar-senha', [AuthController::class, 'changePassword'])->name('mudar-senha');
     
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
