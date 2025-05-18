@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Management;
+use App\Models\Payment;
 use App\Models\Student;
 use App\Models\User;
 use App\Services\PixService;
@@ -17,6 +18,10 @@ class FinancesController extends Controller
     {
         $userLogged = Auth::user();
 
+        $userName = $userLogged->name;
+
+        $user = User::where("id", $userLogged->id)->first();
+
         $students = Student::where("teacher_id", $userLogged->id)->get();
 
         $totalClasses = Management::where("teacher_id", $userLogged->id)->sum("quantity_classes");
@@ -28,7 +33,9 @@ class FinancesController extends Controller
         $time = Carbon::now('America/Sao_Paulo')->format('H:i:s');
 
         $firstName = explode(' ', $userLogged->name)[0];
-        
+
+        $upperLoggedName = strtoupper($userLogged->name);
+
         if($time >= '12:00:00' && $time <= '17:59:59'){
             $greet = "Boa tarde";
         }elseif($time >= '00:00:00' && $time <= '11:59:59'){
@@ -37,49 +44,50 @@ class FinancesController extends Controller
             $greet = "Boa noite";
         }
 
-        return view('finances', compact('students', 'userLogged', 'totalClasses', 'roomRental', 'time', 'greet', 'firstName'));
+        $pixService = new PixService();
+
+        if($userLogged["pix-key"] == null){
+            return redirect()->route('perfil')->withErrors([
+                "key-dont-exists" => "Chave não cadastrada"
+            ]);
+        }
+
+        return view('finances', compact('students', 'userLogged', 'totalClasses', 'roomRental', 'time', 'greet', 'firstName', 'pixService', 'upperLoggedName'));
     }
 
     public function rentGeneratePix()
     {
         $userLogged = Auth::user();
 
-        $validateUserKey = User::where("id", $userLogged->id)->first();
-
-        if($validateUserKey["pix-key"] == null){
-            return back()->withErrors([
-                "key-dont-exists" => "Chave não cadastrada"
-            ]);
-        }
-
-        $owner = User::where("owner", true)->first();
-
         $quantityClasses = Management::where("teacher_id", $userLogged->id)->sum("quantity_classes");
 
         $rentValue = $quantityClasses * 20;
 
-       
-
-        $loggedFirstName = explode(' ', $userLogged->name)[0];
-
-        $upperUserName = strtoupper($loggedFirstName);
-
-        $upperOwnerName = strtoupper($owner->name);
+        $userFirstName = strtoupper(explode(' ', $userLogged->name)[0]);
 
         $pixService = new PixService();
 
-        $payload = $pixService->gerarPix(
-            chavePix: '+55'.$owner["pix-key"], 
+        $pix = $pixService->gerarPix(
+            chavePix: "+5542998002359", 
             valor: $rentValue, 
-            beneficiario: $upperOwnerName,
-            cidade: 'GUARAPUAVA',
-            descricao: 'ALUGUEL SALA PROF '.$upperUserName,
+            beneficiario: "JOBIANA PADILHA ZENI",
+            cidade: "GUARAPUAVA",
+            descricao: 'ALUGUEL SALA PROF '.$userFirstName,
             txid: 'ALUG' . time()
         );
 
+       $registerPayment = Payment::create([
+            "teacher_id" => $userLogged->id,
+            "payer_pix_key" => $userLogged["pix-key"],
+            "beneficiary_pix_key" => "+5542998002359",
+            "rent_value" => $rentValue,
+            "beneficiary" => "JOBIANA PADILHA ZENI",
+            "rent" => true
+       ]);
+
         return view('payment', [
-            'codigoPix' => $payload['codigo'],
-            'qrCode' => $payload['qr_code'],
+            'codigoPix' => $pix['codigo'],
+            'qrCode' => $pix['qr_code'],
             'aluguel' => $rentValue
         ]);
     }
