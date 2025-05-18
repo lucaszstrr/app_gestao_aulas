@@ -2,13 +2,14 @@
 
 @section('content')
 
-    <div class="content-profile-page">
+    <div class="content-profile-page">  
         <h1>Meu perfil</h1>
         <h3 class="profile-greet">{{ $greet }}, {{ $firstName }}!</h3>
+        @error('key-dont-exists')
+            <p class="pix-field-error"><i class="fa-regular fa-circle-question" style="color: #ff0000;"></i> Para accesar a página Finanças você deve cadastrar a sua chave PIX abaixo</p>
+        @enderror
         <div class="content-grid">
-
             <div class="profile-data">
-
                 <form class="profile-data-form" method="POST" action="{{ route('atualizar-nome') }}">
                     @csrf
                     @method('PUT')
@@ -36,11 +37,9 @@
                         <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Dados atualizados com sucesso!</p>
                     @endif
                 </form>
-                
             </div>
 
             <div class="profile-data">
-
                 @if($user['pix-key'] == null)
                     <p>Você ainda não tem uma chave PIX cadastrada</p>
                 @else
@@ -87,8 +86,7 @@
                     @endif
                     <br>
                     <button class="green-button" linkto="{{ route('adicionar-chave-pix') }}">Atualizar Chave</button>
-                    <br>
-                    
+                    <br>      
                 </form>
             </div>
             
