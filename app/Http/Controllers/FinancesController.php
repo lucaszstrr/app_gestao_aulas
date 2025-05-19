@@ -68,7 +68,7 @@ class FinancesController extends Controller
         $pixService = new PixService();
 
         $pix = $pixService->gerarPix(
-            chavePix: "+5542998002359", 
+            chavePix: "51351383000183", 
             valor: $rentValue, 
             beneficiario: "JOBIANA PADILHA ZENI",
             cidade: "GUARAPUAVA",
