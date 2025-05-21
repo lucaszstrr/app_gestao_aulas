@@ -74,7 +74,7 @@
                                         . "Em%20".$mes_atual."%2C%20foram%20realizadas%20"
                                         . $latestManagement->quantity_classes."%20aulas%20com%20".$student->name.".%0A"
                                         . "Valor%3A%20R%24%20".number_format($latestManagement->total_value ?? 0, 2, ',', '.')."%0A"
-                                        . "PIX%20(CNPJ)%3A%2051351383000183%0A"
+                                        . "Chave%20PIX%20%3A%20".$userLogged['pix-key']."%0A"
                                         . "Copia%20e%20cola%3A%0A"
                                         . $pixCode."%0A"
                                         . "Qualquer%20d%C3%BAvida%2C%20fico%20%C3%A0%20disposi%C3%A7%C3%A3o.%0A"
