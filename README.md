@@ -29,3 +29,7 @@ A web application for managing private lessons for a local education company. Th
 3. Run the application:
     ```bash
     php artisan serve
+
+## Contact
+For more information contact me here
+- **Linkedin**: linkedin.com/in/lucaszstr
