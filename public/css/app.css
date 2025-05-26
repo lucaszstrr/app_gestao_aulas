@@ -142,7 +142,7 @@ header div.header_middle a:hover{
 }
 
 
-@media (max-width: 980px) {
+@media (max-width: 1250px) {
     header div.header_middle {
         justify-content: flex-end; 
         gap: 0;
@@ -198,10 +198,6 @@ header div.header_middle a:hover{
 
     div.header_right{
         padding-right: 5px !important;
-    }
-
-    div.header_right button{
-        visibility: hidden;
     }
 
     header div.header_right a.logged-header {
@@ -406,22 +402,17 @@ section.main-content{
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 70px 90px;
         background-color: var(--d-color);
         border-radius: 15px;
         border: 0.5px solid var(--e-color);
         box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
-        width: 390px;
+        width: 350px !important;
         height: 450px;
     }
     
     
     .login-interface .text-login{
         margin-bottom: 30px;
-        margin-top: 30px;
-        padding: 0px;
-        justify-content: center; 
         font-size: 22px;
     }
     
@@ -555,12 +546,11 @@ p.error-name-lenght{
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 70px 90px;
         background-color: var(--d-color);
         border-radius: 15px;
         border: 0.5px solid var(--e-color);
         box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.3);
-        width: 390px;
+        width: 350px !important;
         height: 650px;
     }
     
