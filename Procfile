@@ -1,2 +1,1 @@
-release: php artisan storage:link
-web: php artisan serve --host=0.0.0.0 --port=$PORT
+web: sh -c "chmod -R 775 storage bootstrap/cache && php artisan serve --host=0.0.0.0 --port=$PORT"

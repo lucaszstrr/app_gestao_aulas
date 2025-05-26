@@ -1,5 +1,8 @@
-[phases.setup]
-nixPkgs = ["php", "php82Extensions.curl", "php82Extensions.gd", "php82Extensions.mbstring", "php82Extensions.openssl", "php82Extensions.pdo_mysql", "php82Extensions.xml", "php82Extensions.zip", "php82Extensions.fileinfo", "composer", "nodejs"]
+[phases]
+setup = [
+  "apt-get update",
+  "apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev"
+]
 
 [phases.build]
 commands = [
@@ -7,7 +10,8 @@ commands = [
   "npm install && npm run prod",
   "php artisan key:generate",
   "php artisan storage:link",
-  "php artisan optimize"
+  "php artisan optimize",
+  "chmod -R 775 storage bootstrap/cache"
 ]
 
 [start]
