@@ -19,7 +19,7 @@
             <a href="{{ route('menu-professor') }}">Menu do Professor</a>
             <a href="{{ route('financas') }}">Finanças</a>
             <a href="{{ route('perfil') }}">Meu perfil</a>
-            <a href="{{ route('logout') }}"><button class="btn_login">Deslogar</button></a>
+            <a href="{{ route('logout') }}"><button class="btn_login">Sair <i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></button></a>
         </nav>
     </div>
 
@@ -28,6 +28,6 @@
             @auth
             Olá, {{ explode(' ', auth()->user()->name)[0] }}! <i class="fa-solid fa-circle-user fa-xl" style="color: #6e6e6e;"></i>
             @endauth
-        </a>
+        </a> 
     </div>
 </header>
