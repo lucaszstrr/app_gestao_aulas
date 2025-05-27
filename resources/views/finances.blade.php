@@ -15,6 +15,7 @@
                         <th class="text-center align-middle">Qtd. Aulas</th>
                         <th class="text-center align-middle">Valor</th>
                         <th class="text-center align-middle">Mensagem Automática</th>
+                        <th class="text-center align-middle">Gerar Código PIX</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,28 +28,6 @@
                             $studentUpperName = strtoupper($student->name);
 
                             $responsibleName = ucfirst(explode(' ', $student->responsible)[0]);
-
-                            if($userLogged["pix-key-type"] == "number"){
-                                $pix = $pixService->gerarPix(
-                                    chavePix: "+55".$userLogged["pix-key"], 
-                                    valor: $latestManagement->total_value, 
-                                    beneficiario: $upperLoggedName,
-                                    cidade: "GUARAPUAVA",
-                                    descricao: 'AULAS '.$studentUpperName,
-                                    txid: 'ALUG' . time()
-                                );
-                            }
-
-                            $pix = $pixService->gerarPix(
-                                chavePix: $userLogged["pix-key"], 
-                                valor: $latestManagement->total_value, 
-                                beneficiario: $upperLoggedName,
-                                cidade: "GUARAPUAVA",
-                                descricao: 'AULAS '.$studentUpperName,
-                                txid: 'ALUG' . time()
-                            );
-                            
-                            $pixCode = $pix["codigo"];
 
                             $meses = [
                                 1 => 'Janeiro',
@@ -75,12 +54,9 @@
                                         . $latestManagement->quantity_classes."%20aulas%20com%20".$student->name.".%0A"
                                         . "Valor%3A%20R%24%20".number_format($latestManagement->total_value ?? 0, 2, ',', '.')."%0A"
                                         . "Chave%20PIX%20%3A%20".$userLogged['pix-key']."%0A"
-                                        . "Copia%20e%20cola%3A%0A"
-                                        . $pixCode."%0A"
                                         . "Qualquer%20d%C3%BAvida%2C%20fico%20%C3%A0%20disposi%C3%A7%C3%A3o.%0A"
                                         . "Prof.%20".$firstName;
 
-                            //$message = "https://wa.me/55".$student->responsible_number."?text=***Aluno:***".$student->name."%0A***Quantidade de aulas:***". $latestManagement->quantity_classes ?? 0 ."%0A***Valor:*** R$". number_format($latestManagement->total_value ?? 0, 2, ',', '.');
                         @endphp
                         <tr class="{{ $paidStatus ? 'bg-success-light' : '' }}">
                             <td class="text-center align-middle">{{ $student->name }}</td>
@@ -90,14 +66,21 @@
                             <td class="text-center align-middle">
                                 <a target="_blank" href="{{ $message }}">      
                                     <button class="green-button">
-                                        Enviar mensagem <i class="fa-brands fa-whatsapp" style="color: #113800;"></i>
+                                        Enviar mensagem <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('gerar-codigo-pix-responsavel', $student->id) }}">
+                                    <button class="green-button">
+                                        Gerar PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i>
                                     </button>
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center py-4">Nenhum aluno cadastrado</td>
+                            <td colspan="8" class="text-center py-4">Nenhum aluno cadastrado</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -117,13 +100,13 @@
                     <p class="finances-text">Até o momento, você teve {{ $totalClasses }} aula!</p>
                     <p class="finances-text">O valor das salas a ser pago é de: R${{ number_format($roomRental, 2, ',', '.') }}</p>
                     <a href="{{ route('gerar-codigo-pix') }}">
-                        <button class="green-button">Pagar com código PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i></i></button>
+                        <button class="green-button">Pagar com código PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i></button>
                     </a>
                 @else
                 <p class="finances-text">Até o momento, você teve {{ $totalClasses }} aulas!</p>
                 <p class="finances-text">O valor das salas a ser pago é de: R${{ number_format($roomRental, 2, ',', '.') }}</p>
                 <a href="{{ route('gerar-codigo-pix') }}">
-                    <button class="green-button">Pagar com código PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i></i></button>
+                    <button class="green-button">Pagar com código PIX <i class="fa-solid fa-qrcode" style="color: #113800;"></i></button>
                 </a>
                 @endif
             @endif
