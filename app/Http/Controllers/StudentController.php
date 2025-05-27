@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Management;
 use App\Models\Responsible;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -74,25 +75,6 @@ class StudentController extends Controller
     }
 
 
-    public function delete(string $id)
-    {
-        $userId = Auth::id();
-
-        $student = Student::findOrFail($id);
-
-        if($student->teacher_id !== $userId){
-            abort(403, 'Ação não autorizada'); 
-        }
-
-        $responsible = Responsible::where("id", $student->responsible_id)->first();
-
-        $student->delete();
-        $responsible->delete();
-
-        return redirect()->route('meus-alunos');
-    }
-
-
     public function indexUpdateStudent(string $id)
     {
         $student = Student::findOrFail($id);
@@ -146,6 +128,28 @@ class StudentController extends Controller
             "number" => $validateStudent['responsible_number']
         ]);
 
+        return redirect()->route('meus-alunos');
+    }
+
+
+    public function delete(string $id)
+    {
+        $userId = Auth::id();
+
+        $student = Student::findOrFail($id);
+
+        if($student->teacher_id !== $userId){
+            abort(403, 'Ação não autorizada'); 
+        }
+
+        $responsible = Responsible::where("id", $student->responsible_id)->first();
+
+        $managements = Management::where("student_id", $student->id)->first();
+
+        $managements->delete();
+        $responsible->delete();
+        $student->delete();
+        
         return redirect()->route('meus-alunos');
     }
 }
