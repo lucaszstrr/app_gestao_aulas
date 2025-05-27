@@ -103,6 +103,12 @@ class FinancesController extends Controller
 
         $management = Management::where("student_id", $student->id)->first();
 
+        if($management->quantity_classes == 0){
+            return back()->withErrors([
+                "invalid-pix" => "Valor de pix inválido"
+            ]);
+        }
+
         $pixService = new PixService();
 
         if($userLogged["pix-key-type"] == "number"){
