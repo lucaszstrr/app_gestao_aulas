@@ -42,16 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/pagamento-aluno/{id}', [ManagementController::class, 'updatePayment'])->name('pagamento-aluno');
 
 
-
-
-
     //STUDENTS
     Route::get('/meus-alunos', [StudentController::class, 'index'])->name('meus-alunos');
 
     Route::get('/adicionar-aluno', [StudentController::class, 'indexRegisterStudent'])->name('adicionar-aluno');
     Route::post('/cadastrar-aluno', [StudentController::class, 'store'])->name('cadastrar-aluno');
     
-   
     Route::get('/editar-aluno/{id}', [StudentController::class, 'indexUpdateStudent'])->name('editar-aluno');
     Route::put('/aluno/{id}', [StudentController::class, 'update'])->name('submit-editar-aluno');
 
@@ -61,6 +57,8 @@ Route::middleware('auth')->group(function () {
     //FINANCES
     Route::get('/financas', [FinancesController::class, 'index'])->name('financas');
     Route::get('/gerar-pix', [FinancesController::class, 'rentGeneratePix'])->name('gerar-codigo-pix');
+    Route::get('/gerar-pix-responsavel/{id}', [FinancesController::class, 'generatePix'])->name('gerar-codigo-pix-responsavel');
+
 
     //PROFILE
     Route::get('/perfil', [UserController::class, 'index'])->name('perfil');

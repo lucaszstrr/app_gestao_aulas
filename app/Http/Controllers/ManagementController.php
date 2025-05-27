@@ -25,12 +25,6 @@ class ManagementController extends Controller
     }
 
 
-    public function create(Student $student)
-    {
-        //
-    }
-
-    
     public function store(Request $request, Student $student, string $id)
     {
         $userLogged = Auth::user();
@@ -51,6 +45,7 @@ class ManagementController extends Controller
             $valueClasses = $validateManagement["quantity_classes"] * $student->class_value;
 
             $managementExists->update([
+                "class_value" => $student->class_value,
                 "quantity_classes" => $validateManagement["quantity_classes"],
                 "total_value" => $valueClasses
             ]);
@@ -77,6 +72,7 @@ class ManagementController extends Controller
         return redirect()->route('menu-professor')->with('success', 'Presença atualizada com sucesso!');
     }
 
+    
     public function updatePayment(Request $request, string $id)
     {
         $userLogged = Auth::user();
@@ -92,37 +88,5 @@ class ManagementController extends Controller
         }
 
         return redirect()->route('menu-professor')->with('success', 'Pagamento atualizado!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Management $management)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Management $management)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Management $management)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Management $management)
-    {
-        //
     }
 }

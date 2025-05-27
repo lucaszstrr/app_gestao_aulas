@@ -6,43 +6,40 @@ use App\Models\Management;
 use App\Models\Payment;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\GreetService;
 use App\Services\PixService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class FinancesController extends Controller
 {
     public function index()
     {
+        //USER
         $userLogged = Auth::user();
 
         $userName = $userLogged->name;
 
         $user = User::where("id", $userLogged->id)->first();
 
-        $students = Student::where("teacher_id", $userLogged->id)->get();
+        $firstName = explode(' ', $userLogged->name)[0];
 
+        $upperLoggedName = strtoupper($userLogged->name);
+
+        //MANAGEMENT
         $totalClasses = Management::where("teacher_id", $userLogged->id)->sum("quantity_classes");
 
         $classes = Management::where("teacher_id", $userLogged->id)->sum("quantity_classes");
 
         $roomRental = $classes * 20;
 
-        $time = Carbon::now('America/Sao_Paulo')->format('H:i:s');
+        //STUDENT
+        $students = Student::where("teacher_id", $userLogged->id)->get();
 
-        $firstName = explode(' ', $userLogged->name)[0];
+        //SERVICES
+        $greetService = new GreetService();
 
-        $upperLoggedName = strtoupper($userLogged->name);
-
-        if($time >= '12:00:00' && $time <= '17:59:59'){
-            $greet = "Boa tarde";
-        }elseif($time >= '00:00:00' && $time <= '11:59:59'){
-            $greet = "Bom dia";
-        }elseif($time >= '18:00:00' && $time <= '23:59:59'){
-            $greet = "Boa noite";
-        }
+        $greet = $greetService->greet();
 
         $pixService = new PixService();
 
@@ -52,8 +49,9 @@ class FinancesController extends Controller
             ]);
         }
 
-        return view('finances', compact('students', 'userLogged', 'totalClasses', 'roomRental', 'time', 'greet', 'firstName', 'pixService', 'upperLoggedName'));
+        return view('finances', compact('students', 'userLogged', 'totalClasses', 'roomRental', 'greet', 'firstName', 'pixService', 'upperLoggedName'));
     }
+
 
     public function rentGeneratePix()
     {
@@ -79,7 +77,7 @@ class FinancesController extends Controller
        $registerPayment = Payment::create([
             "teacher_id" => $userLogged->id,
             "payer_pix_key" => $userLogged["pix-key"],
-            "beneficiary_pix_key" => "+5542998002359",
+            "beneficiary_pix_key" => "51351383000183",
             "rent_value" => $rentValue,
             "beneficiary" => "JOBIANA PADILHA ZENI",
             "rent" => true
@@ -89,6 +87,80 @@ class FinancesController extends Controller
             'codigoPix' => $pix['codigo'],
             'qrCode' => $pix['qr_code'],
             'aluguel' => $rentValue
+        ]);
+    }
+
+
+    public function generatePix(string $id)
+    {
+        $userLogged = Auth::user();
+
+        $userFirstName = strtoupper(explode(' ', $userLogged->name)[0]);
+
+        $student = Student::where("id", $id)->first();
+
+        $studentFirstName = strtoupper(explode(' ', $student->name)[0]);
+
+        $management = Management::where("student_id", $student->id)->first();
+
+        if($management->quantity_classes == 0){
+            return back()->withErrors([
+                "invalid-pix" => "Valor de pix inválido"
+            ]);
+        }
+
+        $pixService = new PixService();
+
+        if($userLogged["pix-key-type"] == "number"){
+            $pix = $pixService->gerarPix(
+                chavePix: "+55".$userLogged["pix-key"], 
+                valor: $management->total_value, 
+                beneficiario: $userFirstName,
+                cidade: "GUARAPUAVA",
+                descricao: 'AULAS '.$studentFirstName,
+                txid: 'ALUG' . time()
+            );
+
+            $registerPayment = Payment::create([
+                "teacher_id" => $userLogged->id,
+                "responsible_id" => $student->responsible_id,
+                "payer_pix_key" => 0,
+                "beneficiary_pix_key" => "+55".$userLogged["pix-key"],
+                "classes_total_value" => $management->total_value,
+                "beneficiary" => $userFirstName,
+                "rent" => false
+            ]);
+
+            return view('payment-classes', [
+                'codigoPix' => $pix['codigo'],
+                'qrCode' => $pix['qr_code'],
+                'aluguel' => $management->total_value
+            ]);
+        }
+
+        $pix = $pixService->gerarPix(
+            chavePix: $userLogged["pix-key"], 
+            valor: $management->total_value, 
+            beneficiario: $userFirstName,
+            cidade: "GUARAPUAVA",
+            descricao: 'AULAS '.$studentFirstName,
+            txid: 'ALUG' . time()
+        );
+
+        $registerPayment = Payment::create([
+            "teacher_id" => $userLogged->id,
+            "responsible_id" => $student->responsible_id,
+            "payer_pix_key" => 0,
+            "beneficiary_pix_key" => $userLogged["pix-key"],
+            "classes_total_value" => $management->total_value,
+            "beneficiary" => $userFirstName,
+            "rent" => false
+        ]);
+
+        return view('payment-classes', [
+            'codigoPix' => $pix['codigo'],
+            'qrCode' => $pix['qr_code'],
+            'aluguel' => $management->total_value
         ]);
     }
 }
