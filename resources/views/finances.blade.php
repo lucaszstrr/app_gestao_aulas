@@ -6,6 +6,9 @@
         <div class="finances-content">
             <h1>Cobranças</h1>
         </div>
+        @error('invalid-pix')
+            <p class="pix-field-error"><i class="fa-regular fa-circle-question" style="color: #ff0000;"></i> Você deve ter ao menos uma aula com o aluno para gerar o PIX </p>
+        @enderror
         <div class="table-responsive">
             <table class="table table-bordered table-hover" style="border-collapse: collapse;">
                 <thead class="thead-light">
