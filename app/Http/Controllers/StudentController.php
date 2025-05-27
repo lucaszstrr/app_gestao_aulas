@@ -65,6 +65,12 @@ class StudentController extends Controller
             "number" => $validateStudent['responsible_number']
         ]);
 
+        $createManagement = Management::create([
+            "student_id" => $student->id,
+            "teacher_id" => $teacherId,
+            "class_value" => 0
+        ]);
+
         $responsible = Responsible::where("student_id", $student->id)->first();
 
         $student->update([
