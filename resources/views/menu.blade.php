@@ -42,10 +42,21 @@
                             $latestManagement = $student->managements()->latest()->first();
 
                             $paidStatus = $latestManagement ? $latestManagement->paid : false;
+
+                            if($student->school_year == 'fundamental 1'){
+                                $school_year = "Fundamental 1";
+                            }elseif($student->school_year == 'fundamental 2'){
+                                $school_year = "Fundamental 2";
+                            }elseif($student->school_year == 'ensino médio'){
+                                $school_year = "Ensino Médio";
+                            }elseif($student->school_year == 'ensino superior'){
+                                $school_year = "Ensino Superior";
+                            }
+
                         @endphp
                         <tr class="{{ $paidStatus ? 'bg-success-light' : '' }}">
                             <td class="text-center align-middle">{{ $student->name }}</td>
-                            <td class="text-center align-middle">{{ $student->school_year }}</td>
+                            <td class="text-center align-middle">{{ $school_year }}</td>
                             <td class="text-center align-middle">{{ $student->school }}</td>
                             <td class="text-center align-middle">R$ {{ number_format($student->class_value ?? 0, 2, ',', '.') }}</td>
                             <td class="text-center align-middle">
