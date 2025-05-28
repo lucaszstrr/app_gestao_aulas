@@ -105,4 +105,33 @@ class ManagementController extends Controller
         
         return $tableService->generateTable($students);
     }
+
+
+    public function resetClasses()
+    {
+        $userLogged = Auth::user();
+
+        $students = Student::where("teacher_id", $userLogged->id)->get();
+
+        $managements = Management::where("teacher_id", $userLogged->id)->get();
+
+        foreach($students as $student){
+            $management = Management::where("student_id", $student->id)->first();
+
+            $management->update([
+                "class_value" => $student->class_value
+            ]);
+        }
+
+        foreach($managements as $management){
+            $management->update([
+                "quantity_classes" => 0,
+                "total_value" => 0
+            ]);
+        }
+
+        return redirect()->route('menu-professor')->withSuccess([
+            "reseted-classes" => "All classes were reseted succesfully"
+        ]);
+    }
 }
