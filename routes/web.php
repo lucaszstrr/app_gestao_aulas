@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/gerar-planilha', [ManagementController::class, 'generateTable'])->name('gerar-planilha');
 
+    Route::get('/resetar-presenca', [ManagementController::class, 'resetClasses'])->name('resetar-presenca');
+
 
     //STUDENTS
     Route::get('/meus-alunos', [StudentController::class, 'index'])->name('meus-alunos');
