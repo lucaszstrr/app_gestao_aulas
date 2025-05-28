@@ -5,6 +5,11 @@
     <div class="content-students-page">
         <div class="students-content">
             <h1>Menu do professor</h1>
+            <a href="{{ route('gerar-planilha') }}">
+                <button class="green-button">
+                    Exportar para Excel <i class="fa-solid fa-table" style="color: #3a6604;"></i>
+                </button>
+            </a>
         </div>
 
         <div class="table-responsive">
@@ -18,7 +23,6 @@
                         <th class="text-center align-middle">Presença</th>
                         <th class="text-center align-middle">Total</th>
                         <th class="text-center align-middle">Pago</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
