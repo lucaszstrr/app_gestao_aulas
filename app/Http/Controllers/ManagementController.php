@@ -6,6 +6,8 @@ use App\Models\Management;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\TableService;
+
 
 class ManagementController extends Controller
 {
@@ -88,5 +90,48 @@ class ManagementController extends Controller
         }
 
         return redirect()->route('menu-professor')->with('success', 'Pagamento atualizado!');
+    }
+
+
+    public function generateTable()
+    {
+        $userLogged = Auth::user();
+
+        $students = Student::where("teacher_id", $userLogged->id)->get();
+
+        $managements = Management::where("teacher_id", $userLogged->id)->get();
+
+        $tableService = new TableService();
+        
+        return $tableService->generateTable($students);
+    }
+
+
+    public function resetClasses()
+    {
+        $userLogged = Auth::user();
+
+        $students = Student::where("teacher_id", $userLogged->id)->get();
+
+        $managements = Management::where("teacher_id", $userLogged->id)->get();
+
+        foreach($students as $student){
+            $management = Management::where("student_id", $student->id)->first();
+
+            $management->update([
+                "class_value" => $student->class_value
+            ]);
+        }
+
+        foreach($managements as $management){
+            $management->update([
+                "quantity_classes" => 0,
+                "total_value" => 0
+            ]);
+        }
+
+        return redirect()->route('menu-professor')->withSuccess([
+            "reseted-classes" => "All classes were reseted succesfully"
+        ]);
     }
 }
