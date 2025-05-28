@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pagamento-aluno/{id}', [ManagementController::class, 'updatePayment'])->name('pagamento-aluno');
 
+    Route::get('/gerar-planilha', [ManagementController::class, 'generateTable'])->name('gerar-planilha');
+
 
     //STUDENTS
     Route::get('/meus-alunos', [StudentController::class, 'index'])->name('meus-alunos');
