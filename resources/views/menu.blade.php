@@ -5,11 +5,22 @@
     <div class="content-students-page">
         <div class="students-content">
             <h1>Menu do professor</h1>
-            <a href="{{ route('gerar-planilha') }}">
-                <button class="green-button">
-                    Exportar para Excel <i class="fa-solid fa-table" style="color: #3a6604;"></i>
-                </button>
-            </a>
+            @if (session('reseted-classes'))
+                <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Todas as presenças foram resetadas com sucesso!</p>
+            @endif
+            <div>
+                <a href="{{ route('resetar-presenca') }}">
+                    <button onclick="return confirm('Essa ação irá resetar todas as presenças dos alunos')">
+                        Resetar Presenças
+                    </button>
+                </a>
+                <a href="{{ route('gerar-planilha') }}">
+                    <button class="green-button">
+                        Exportar para Excel <i class="fa-solid fa-table" style="color: #3a6604;"></i>
+                    </button>
+                </a>
+            </div>
+            
         </div>
 
         <div class="table-responsive">
@@ -38,7 +49,6 @@
                             <td class="text-center align-middle">{{ $student->school }}</td>
                             <td class="text-center align-middle">R$ {{ number_format($student->class_value ?? 0, 2, ',', '.') }}</td>
                             <td class="text-center align-middle">
-
                                 <form method="POST" action="{{ route('quantidade-aulas', $student->id) }}">
                                 @csrf
                                     <select class="input" name="quantity_classes" onchange="this.form.submit()">
@@ -50,7 +60,6 @@
                                         @endfor
                                     </select>
                                 </form>
-
                             </td>
 
                             <td class="text-center align-middle">R$ {{ number_format($latestManagement->total_value ?? 0, 2, ',', '.') }}</td>
