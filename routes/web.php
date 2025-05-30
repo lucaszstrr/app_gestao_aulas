@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ManagementController;
@@ -34,6 +35,17 @@ Route::post('/login', [AuthController::class, 'login'])->name('login-account');
 
 
 Route::middleware('auth')->group(function () {
+    //ADMIN 
+    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
+
+    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
+
+    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('admin-editar-professor');
+    
+    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
+
+
+
     //TEACHER MENU
     Route::get('/menu-professor', [ManagementController::class, 'index'])->name('menu-professor');
 
