@@ -24,11 +24,27 @@ class AdminController extends Controller
     {
         $teachers = User::where("role", "user")->get();
 
+        $students = Student::all();
+
         $managements = Management::all();
        
-        return view('admin-teachers', compact('teachers', 'managements'));
+        return view('admin-teachers', compact('teachers', 'managements', 'students'));
 
     }
     
-    
+
+    public function editTeacher(string $id)
+    {
+
+
+        
+    }
+
+
+    public function removeTeacher(string $id)
+    {
+
+
+
+    }
 }
