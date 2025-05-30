@@ -78,6 +78,12 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($validateLogin)){
+            $userLogged = Auth::user();
+
+            if($userLogged->role == 'admin'){
+                return redirect()->route('admin-menu');
+            }
+
             return redirect()->route('menu-professor');
         }
 
