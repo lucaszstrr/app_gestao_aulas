@@ -6,13 +6,17 @@
         <div class="students-content">
             <h1>Professores</h1>
             <div> 
-                <a href="">
+                <a href="{{ route('register') }}">
                     <button class="green-button">
                         Cadastrar Professor <i class="fa-solid fa-user-plus" style="color: #3a6604;"></i>
                     </button>
                 </a>
             </div>
         </div>
+
+        @if (session('teacher-deleted'))
+            <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Professor(a) excluído com sucesso!</p>
+        @endif
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover" style="border-collapse: collapse;">
@@ -52,7 +56,6 @@
                         }
 
                         $rentValue = $qtdClasses * 20;
-
                     @endphp
                         <tr>
                             <td class="text-center align-middle">{{ $teacher->name }}</td>
