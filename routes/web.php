@@ -26,8 +26,7 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/register', [AuthController::class, 'index'])->name('register');
-Route::post('/register', [AuthController::class,'store'])->name('register-account');
+
 
 Route::get('/login', [AuthController::class, 'indexLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login-account');
@@ -35,14 +34,23 @@ Route::post('/login', [AuthController::class, 'login'])->name('login-account');
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/register', [AuthController::class, 'index'])->name('register');
+    
+    Route::post('/register', [AuthController::class,'store'])->name('register-account');
+
+
     //ADMIN 
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
 
     Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
 
-    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('admin-editar-professor');
+    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
+
+    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
     
     Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
+
 
 
 
