@@ -4,7 +4,7 @@
 
     <section class="main-content">
         <div class="create-account-interface">
-            <h2 class="text-login">Crie sua conta agora mesmo!</h2>
+            <h2 class="text-login">Criar conta</h2>
 
             <form method="POST" action="{{ route('register-account') }}">
                 @csrf
