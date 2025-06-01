@@ -18,6 +18,10 @@
             <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Professor(a) excluído com sucesso!</p>
         @endif
 
+        @if (session('teacher-updated'))
+            <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Professor(a) atualizado com sucesso!</p>
+        @endif
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover" style="border-collapse: collapse;">
                 <thead class="thead-light">
