@@ -59,9 +59,7 @@ class AuthController extends Controller
             "area" => $validateUser['area'],
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('menu-professor');
+        return redirect()->route('admin-professor');
     }
 
 
