@@ -61,6 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pagamento-aluno/{id}', [ManagementController::class, 'updatePayment'])->name('pagamento-aluno');
 
+    Route::post('/anotacao-aluno/{id}', [ManagementController::class, 'studentDescription'])->name('anotacao-aluno');
+
+    Route::put('/anotacoes-aluno', [ManagementController::class, 'resetDescription'])->name('resetar-anotacoes');
+
+    Route::put('/resetar-status', [ManagementController::class, 'resetStatus'])->name('resetar-pago');
+
     Route::get('/gerar-planilha', [ManagementController::class, 'generateTable'])->name('gerar-planilha');
 
     Route::get('/resetar-presenca', [ManagementController::class, 'resetClasses'])->name('resetar-presenca');
