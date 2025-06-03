@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\TableService;
 
+use function PHPUnit\Framework\isEmpty;
 
 class ManagementController extends Controller
 {
@@ -133,5 +134,61 @@ class ManagementController extends Controller
         return redirect()->route('menu-professor')->withSuccess([
             "reseted-classes" => "All classes were reseted succesfully"
         ]);
+    }
+
+
+    public function studentDescription(Request $request, string $id)
+    {
+        $validateText = $request->validate([
+            "description" => "nullable | string"
+        ]);
+
+        $management = Management::where("student_id", $id)->first();
+
+        if($validateText["description"] == null){
+            $management->update([
+                "description" => null
+            ]);
+
+            return redirect()->route('menu-professor');
+        }
+
+        $management->update([
+            "description" => $validateText["description"]
+        ]);
+
+        return redirect()->route('menu-professor');
+    }
+
+
+    public function resetDescription()
+    {
+        $userLogged = Auth::user();
+
+        $managements = Management::where("teacher_id", $userLogged->id)->get();
+
+        foreach($managements as $management){
+            $management->update([
+                "description" => null
+            ]);
+        }
+
+        return redirect()->route('menu-professor');
+    }
+
+
+    public function resetStatus()
+    {
+        $userLogged = Auth::user();
+
+        $managements = Management::where("teacher_id", $userLogged->id)->get();
+
+        foreach($managements as $management){
+            $management->update([
+                "paid" => 0
+            ]);
+        }
+
+        return redirect()->route('menu-professor');
     }
 }
