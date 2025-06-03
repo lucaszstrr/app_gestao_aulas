@@ -17,7 +17,6 @@
         <nav class="nav-middle">
             <a href="{{ route('admin-menu') }}">Dashboard</a>
             <a href="{{ route('admin-professor') }}">Professores</a>
-            <a href="{{ route('financas') }}">Pagamentos</a>
             <a href="{{ route('logout') }}"><button class="btn_login">Sair <i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></button></a>
         </nav>
     </div>
