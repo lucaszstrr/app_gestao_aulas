@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ManagementController;
@@ -25,8 +26,7 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/register', [AuthController::class, 'index'])->name('register');
-Route::post('/register', [AuthController::class,'store'])->name('register-account');
+
 
 Route::get('/login', [AuthController::class, 'indexLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login-account');
@@ -34,12 +34,38 @@ Route::post('/login', [AuthController::class, 'login'])->name('login-account');
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/register', [AuthController::class, 'index'])->name('register');
+    
+    Route::post('/register', [AuthController::class,'store'])->name('register-account');
+
+
+    //ADMIN 
+    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
+
+    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
+
+    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
+
+    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
+    
+    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
+
+
+
+
     //TEACHER MENU
     Route::get('/menu-professor', [ManagementController::class, 'index'])->name('menu-professor');
 
     Route::post('/aulas/{id}', [ManagementController::class, 'store'])->name('quantidade-aulas');
 
     Route::post('/pagamento-aluno/{id}', [ManagementController::class, 'updatePayment'])->name('pagamento-aluno');
+
+    Route::post('/anotacao-aluno/{id}', [ManagementController::class, 'studentDescription'])->name('anotacao-aluno');
+
+    Route::put('/anotacoes-aluno', [ManagementController::class, 'resetDescription'])->name('resetar-anotacoes');
+
+    Route::put('/resetar-status', [ManagementController::class, 'resetStatus'])->name('resetar-pago');
 
     Route::get('/gerar-planilha', [ManagementController::class, 'generateTable'])->name('gerar-planilha');
 

@@ -59,9 +59,7 @@ class AuthController extends Controller
             "area" => $validateUser['area'],
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('menu-professor');
+        return redirect()->route('admin-professor');
     }
 
 
@@ -78,6 +76,12 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($validateLogin)){
+            $userLogged = Auth::user();
+
+            if($userLogged->role == 'admin'){
+                return redirect()->route('admin-menu');
+            }
+
             return redirect()->route('menu-professor');
         }
 

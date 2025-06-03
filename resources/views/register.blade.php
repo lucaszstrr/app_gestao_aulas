@@ -4,7 +4,7 @@
 
     <section class="main-content">
         <div class="create-account-interface">
-            <h2 class="text-login">Crie sua conta agora mesmo!</h2>
+            <h2 class="text-login">Criar conta</h2>
 
             <form method="POST" action="{{ route('register-account') }}">
                 @csrf
@@ -34,7 +34,6 @@
                         @enderror
                     </div>
 
-                <p class="has-account">Já tem uma conta ?<a class="link-has-account" href="{{ route('login') }}"> Entrar</a></p>
                 <button linkto="{{ route('register-account') }}" type="submit" class="login-btn">Criar Conta</button>
             </form>
         </div>

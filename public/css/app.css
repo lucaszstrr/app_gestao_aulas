@@ -1204,3 +1204,13 @@ div.content-grid{
     display: flex;
     justify-content: center;
 }
+
+div.options-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+div.options-container a{
+    margin-left: 10px;
+}

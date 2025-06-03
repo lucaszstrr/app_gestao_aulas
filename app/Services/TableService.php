@@ -26,11 +26,12 @@ class TableService{
         $sheet->setCellValue('D1', 'Presença');
         $sheet->setCellValue('E1', 'Total');
         $sheet->setCellValue('F1', 'Pago');
+        $sheet->setCellValue('G1', 'Anotações');
 
-        $sheet->setCellValue('H1', 'Total Bruto');
-        $sheet->setCellValue('I1', 'Aluguel Salas');
-        $sheet->setCellValue('J1', 'Total Líquido');
-        $sheet->setCellValue('K1', 'Data de Hoje');
+        $sheet->setCellValue('I1', 'Total Bruto');
+        $sheet->setCellValue('J1', 'Aluguel Salas');
+        $sheet->setCellValue('K1', 'Total Líquido');
+        $sheet->setCellValue('L1', 'Data de Hoje');
 
         $total = 0;
         $totalClasses = 0;
@@ -54,6 +55,7 @@ class TableService{
             $sheet->setCellValue('D'.$row, $management->quantity_classes ?? 0);
             $sheet->setCellValue('E'.$row, "R$" . number_format($management->total_value ?? 0, '2', ',', '.'));
             $sheet->setCellValue('F'.$row, $paidStatus);
+            $sheet->setCellValue('G'.$row, $management->description);
             
             $total += $management->total_value ?? 0; 
             $totalClasses += ($management->quantity_classes ?? 0) * 20;
@@ -64,14 +66,14 @@ class TableService{
 
         $liquidValue = $total - $totalClasses;
 
-        $sheet->setCellValue('H2', "R$" . number_format($total, '2', ',', '.'));
-        $sheet->setCellValue('I2', "R$" . number_format($totalClasses, '2', ',', '.'));
-        $sheet->setCellValue('J2', "R$" . number_format($liquidValue, '2', ',', '.'));
-        $sheet->setCellValue('K2', $date);
+        $sheet->setCellValue('I2', "R$" . number_format($total, '2', ',', '.'));
+        $sheet->setCellValue('J2', "R$" . number_format($totalClasses, '2', ',', '.'));
+        $sheet->setCellValue('K2', "R$" . number_format($liquidValue, '2', ',', '.'));
+        $sheet->setCellValue('L2', $date);
 
         //STYLE
-        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
-        $sheet->getStyle('H1:K1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:G1')->getFont()->setBold(true);
+        $sheet->getStyle('I1:L1')->getFont()->setBold(true);
 
         
         $fileName = 'planilha'.date('d:m:Y').'.xlsx';
