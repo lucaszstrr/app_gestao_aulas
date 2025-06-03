@@ -18,6 +18,7 @@ class Management extends Model
         "class_value",
         "total_value",
         "paid",
+        "description",
     ];
 
     public function students(){
