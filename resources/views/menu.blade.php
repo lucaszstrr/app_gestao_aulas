@@ -85,7 +85,7 @@
                                 <form method="POST" action="{{ route('anotacao-aluno', $student->id) }}">
                                     @csrf
                                     @method('POST')
-                                    <input name="description" placeholder="Faça suas anotações aqui" type="text" value="{{ $latestManagement->description }}">
+                                    <input class="input" name="description" placeholder="Faça suas anotações aqui" type="text" value="{{ $latestManagement->description }}">
                                 </form>
                             </td>
                         </tr>
