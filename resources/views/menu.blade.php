@@ -9,11 +9,6 @@
                 <p class="success-message"><i class="fa-solid fa-check" style="color: #3a6604;"></i> Todas as presenças foram resetadas com sucesso!</p>
             @endif
             <div>
-                <a href="{{ route('resetar-presenca') }}">
-                    <button onclick="return confirm('Essa ação irá resetar todas as presenças dos alunos')">
-                        Resetar Presenças
-                    </button>
-                </a>
                 <a href="{{ route('gerar-planilha') }}">
                     <button class="green-button">
                         Exportar para Excel <i class="fa-solid fa-table" style="color: #3a6604;"></i>
@@ -34,6 +29,7 @@
                         <th class="text-center align-middle">Presença</th>
                         <th class="text-center align-middle">Total</th>
                         <th class="text-center align-middle">Pago</th>
+                        <th class="text-center align-middle">Anotações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +57,7 @@
                             <td class="text-center align-middle">R$ {{ number_format($student->class_value ?? 0, 2, ',', '.') }}</td>
                             <td class="text-center align-middle">
                                 <form method="POST" action="{{ route('quantidade-aulas', $student->id) }}">
-                                @csrf
+                                    @csrf
                                     <select class="input" name="quantity_classes" onchange="this.form.submit()">
                                         @for($i = 0; $i <= 12; $i++)
                                             <option value="{{ $i }}" 
@@ -84,6 +80,14 @@
                                     </select>
                                 </form>
                             </td>
+
+                            <td class="text-center align-middle">
+                                <form method="POST" action="{{ route('anotacao-aluno', $student->id) }}">
+                                    @csrf
+                                    @method('POST')
+                                    <input name="description" placeholder="Faça suas anotações aqui" type="text" value="{{ $latestManagement->description }}">
+                                </form>
+                            </td>
                         </tr>
 
                     @empty
@@ -93,7 +97,42 @@
                     @endforelse
                 </tbody>
             </table>
+            
         </div>
+
+        <div class="options-container">
+            <a href="{{ route('resetar-presenca') }}">
+                <form method="PUT" action="{{ route('resetar-presenca') }}">
+                    @csrf
+                    @method('PUT')
+                    <button onclick="return confirm('Essa ação irá resetar todas as presenças dos alunos')">
+                        Resetar Presenças
+                    </button>
+                </form>
+            </a>
+
+            <a href="{{ route('resetar-pago') }}">
+                <form method="POST" action="{{ route('resetar-pago') }}">
+                    @csrf
+                    @method('PUT')
+                    <button onclick="return confirm('Essa ação irá resetar todos os status')">
+                        Resetar Status Pago
+                    </button>
+                </form>
+            </a>
+
+            <a href="{{ route('resetar-anotacoes') }}">
+                <form method="POST" action="{{ route('resetar-anotacoes') }}">
+                    @csrf
+                    @method('PUT')
+                    <button onclick="return confirm('Essa ação irá resetar todas as anotações')">
+                        Resetar Anotações
+                    </button>
+                </form>
+            </a>
+        </div>
+        
+                
     </div>
     <footer class="footer">
         <h3>Total Bruto: R${{ number_format($totalValue ?? 0, 2, ',', '.') }}</h3>
