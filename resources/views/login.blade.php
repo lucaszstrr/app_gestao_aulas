@@ -19,8 +19,6 @@
                     </div>
 
                     <p class="not-account">Ainda não tem uma conta ?<a class="link-not-account" href="{{ route('register') }}"> Criar conta</a></p>
-
-                    <button linkto="{{ route('login-account') }}" type="submit" class="login-btn">Entrar</button>
             </form>
         </div>
     </section>
