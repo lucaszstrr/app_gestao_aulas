@@ -89,11 +89,13 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['admin'])->group(function(){
-    
+
     //ADMIN 
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
 
     Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
+
+    Route::get('/gerar-planilha-admin', [AdminController::class, 'generateTable'])->name('gerar-planilha-admin');
 
     Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
 
