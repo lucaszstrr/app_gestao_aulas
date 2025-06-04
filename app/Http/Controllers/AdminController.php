@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\TableService;
 
 class AdminController extends Controller
 {
@@ -104,5 +105,17 @@ class AdminController extends Controller
             "teacher-deleted" => "O professor foi deletado com sucesso!"
         ]);
 
+    }
+
+
+    public function generateTable()
+    {
+        $students = Student::all();
+
+        $quantityClasses = Management::all()->sum('quantity_classes');
+
+        $tableService = new TableService();
+
+        return $tableService->generateAdminTable($students, $quantityClasses);
     }
 }
