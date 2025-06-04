@@ -6,8 +6,6 @@ use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
-use App\Models\Management;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
