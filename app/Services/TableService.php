@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Management;
+use App\Models\User;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -35,7 +36,7 @@ class TableService{
         $sheet->setCellValue('I1', 'Total Bruto');
         $sheet->setCellValue('J1', 'Aluguel Salas');
         $sheet->setCellValue('K1', 'Total Líquido');
-        $sheet->setCellValue('L1', 'Data de Hoje');
+        $sheet->setCellValue('L1', 'Data Atual');
 
         $total = 0;
         $totalClasses = 0;
@@ -76,8 +77,7 @@ class TableService{
         $sheet->setCellValue('L2', $date);
 
         //STYLE
-        $sheet->getStyle('A1:G1')->getFont()->setBold(true);
-        $sheet->getStyle('I1:L1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:L1')->getFont()->setBold(true);
 
         
         $fileName = 'planilha'.date('d:m:Y').'.xlsx';
@@ -97,6 +97,104 @@ class TableService{
         );
     }
 
+
+
+    public function generateAdminTable($students, $quantityClasses)
+    {
+        if(ob_get_level()){
+            ob_end_clean();
+        }
+        
+
+        ob_start(); 
+
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = date('d/m/Y');
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Nome');
+        $sheet->setCellValue('B1', 'Professor');
+        $sheet->setCellValue('C1', 'Ano');
+        $sheet->setCellValue('D1', 'Escola');
+        $sheet->setCellValue('E1', 'Valor da Aula');
+        $sheet->setCellValue('F1', 'Presença');
+        $sheet->setCellValue('G1', 'Total');
+        $sheet->setCellValue('H1', 'Pago');
+
+        $sheet->setCellValue('J1', 'Total Bruto R$');
+        $sheet->setCellValue('K1', 'Quantidade de Aulas');
+        $sheet->setCellValue('L1', 'Aluguel Salas');
+        $sheet->setCellValue('M1', 'Total Líquido');
+        $sheet->setCellValue('N1', 'Data Atual');
+
+        $total = 0;
+        $totalClasses = 0;
+        $row = 2;
+
+        foreach($students as $student){
+
+            $management = Management::where("student_id", $student->id)->first();
+
+            $teacher = User::where("id", $student->teacher_id)->first();
+
+            if($management->paid == 0 || $management->paid == null){
+                $paidStatus = " ";
+            }elseif($management->paid == 1){
+                $paidStatus = "Sim";
+            }
+
+            $schoolYear = $this->schoolYear($student->school_year);
+
+            $sheet->setCellValue('A'.$row, $student->name);
+            $sheet->setCellValue('B'.$row, $teacher->name);
+            $sheet->setCellValue('C'.$row, $schoolYear);
+            $sheet->setCellValue('D'.$row, $student->school);
+            $sheet->setCellValue('E'.$row, "R$" . number_format($management->class_value ?? 0, '2', ',', '.'));
+            $sheet->setCellValue('F'.$row, $management->quantity_classes ?? 0);
+            $sheet->setCellValue('G'.$row, "R$" . number_format($management->total_value ?? 0, '2', ',', '.'));
+            $sheet->setCellValue('H'.$row, $paidStatus);
+            
+            $total += $management->total_value ?? 0; 
+            $totalClasses += ($management->quantity_classes ?? 0) * 20;
+
+            $row++;
+
+        }
+
+        $liquidValue = $total - $totalClasses;
+
+        $sheet->setCellValue('J2', "R$" . number_format($total, '2', ',', '.'));
+        $sheet->setCellValue('K2',  $quantityClasses);
+        $sheet->setCellValue('L2', "R$" . number_format($totalClasses, '2', ',', '.'));
+        $sheet->setCellValue('M2', "R$" . number_format($liquidValue, '2', ',', '.'));
+        $sheet->setCellValue('N2', $date);
+
+
+        //STYLE
+        $sheet->getStyle('A1:N1')->getFont()->setBold(true);
+
+        
+        $fileName = 'planilha'.date('d:m:Y').'.xlsx';
+
+        return new StreamedResponse(
+            function () use ($spreadsheet) {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
+                'Cache-Control' => 'no-store, no-cache',
+                'Pragma' => 'no-cache'
+            ]
+        );
+    }
+
+
+
     private function schoolYear(string $school_year)
     {
 
@@ -111,5 +209,4 @@ class TableService{
         }
 
     }
-
 }
