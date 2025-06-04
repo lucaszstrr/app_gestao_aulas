@@ -40,20 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/register', [AuthController::class,'store'])->name('register-account');
 
 
-    //ADMIN 
-    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
-
-    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
-
-    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
-
-    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
-    
-    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
-
-
-
-
     //TEACHER MENU
     Route::get('/menu-professor', [ManagementController::class, 'index'])->name('menu-professor');
 
@@ -98,5 +84,21 @@ Route::middleware('auth')->group(function () {
     
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
+
+
+Route::middleware(['admin'])->group(function(){
+    
+    //ADMIN 
+    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
+
+    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
+
+    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
+
+    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
+    
+    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
 
 });
