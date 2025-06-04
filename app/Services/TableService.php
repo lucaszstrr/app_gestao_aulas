@@ -11,7 +11,11 @@ class TableService{
 
     public function generateTable($students)
     {
-        ob_end_clean();
+        if(ob_get_level()){
+            ob_end_clean();
+        }
+        
+
         ob_start(); 
 
         date_default_timezone_set('America/Sao_Paulo');
