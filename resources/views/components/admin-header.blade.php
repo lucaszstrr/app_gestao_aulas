@@ -1,6 +1,6 @@
 <header>
     <div class="header_left">
-        <a href="{{ route('meus-alunos') }}">
+        <a href="{{ route('admin-menu') }}">
             <img src="{{asset('imgs/logo-reforcando.png')}}" alt="Reforçando">
         </a>
     </div>
