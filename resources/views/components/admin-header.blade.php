@@ -1,6 +1,6 @@
 <header>
     <div class="header_left">
-        <a href="{{ route('meus-alunos') }}">
+        <a href="{{ route('admin-menu') }}">
             <img src="{{asset('imgs/logo-reforcando.png')}}" alt="Reforçando">
         </a>
     </div>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="header_right">
-        <a href="{{ route('perfil') }}" class="logged-header">  
+        <a href="" class="logged-header">  
             @auth
             Olá, {{ explode(' ', auth()->user()->name)[0] }}! <i class="fa-solid fa-circle-user fa-xl" style="color: #6e6e6e;"></i>
             @endauth

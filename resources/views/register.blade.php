@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
 @section('content')
-
+    <a href="{{ route('admin-menu') }}" class="return-back-link"><- Voltar</a>
     <section class="main-content">
         <div class="create-account-interface">
             <h2 class="text-login">Criar conta</h2>

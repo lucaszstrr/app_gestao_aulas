@@ -6,7 +6,7 @@
         <div class="students-content">
             <h1>Menu Administrador</h1>
             <div> 
-                <a href="{{ route('gerar-planilha') }}">
+                <a href="{{ route('gerar-planilha-admin') }}">
                     <button class="green-button">
                         Exportar para Excel <i class="fa-solid fa-table" style="color: #3a6604;"></i>
                     </button>

@@ -6,8 +6,6 @@ use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
-use App\Models\Management;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,20 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/register', [AuthController::class, 'index'])->name('register');
     
     Route::post('/register', [AuthController::class,'store'])->name('register-account');
-
-
-    //ADMIN 
-    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
-
-    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
-
-    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
-
-    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
-    
-    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
-
-
 
 
     //TEACHER MENU
@@ -98,5 +82,23 @@ Route::middleware('auth')->group(function () {
     
     //LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
+
+
+Route::middleware(['admin'])->group(function(){
+
+    //ADMIN 
+    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-menu');
+
+    Route::get('/admin-professor', [AdminController::class, 'teachers'])->name('admin-professor');
+
+    Route::get('/gerar-planilha-admin', [AdminController::class, 'generateTable'])->name('gerar-planilha-admin');
+
+    Route::get('/admin-editar-professor/{id}', [AdminController::class, 'indexTeacher'])->name('admin-editar-professor');
+
+    Route::put('/admin-editar-professor/{id}', [AdminController::class, 'editTeacher'])->name('submit-editar-professor');
+    
+    Route::delete('/admin-remover-professor/{id}', [AdminController::class, 'removeTeacher'])->name('admin-remover-professor');
 
 });
